@@ -4,7 +4,10 @@ Thinking in React - https://react.dev/learn/thinking-in-react
 Origin - https://github.com/SimonWJohnson/strudel_reactor/tree/dev
 React Documentation - https://react.dev/
 Strudel documentation - https://strudel.cc/
+Strudel getting started - https://strudel.cc/workshop/getting-started/
 React Assignment Intro Video - https://lo.unisa.edu.au/mod/resource/view.php?id=4142907
+npm specific documentation - https://codeberg.org/uzu/strudel/src/branch/main/packages/repl, https://codeberg.org/uzu/strudel/src/branch/main/packages/web
+
 
 # Common Commands
 # Check Node and npm versions
