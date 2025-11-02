@@ -8,6 +8,7 @@ Strudel getting started - https://strudel.cc/workshop/getting-started/
 React Assignment Intro Video - https://lo.unisa.edu.au/mod/resource/view.php?id=4142907
 npm specific documentation - https://codeberg.org/uzu/strudel/src/branch/main/packages/repl, https://codeberg.org/uzu/strudel/src/branch/main/packages/web
 course website resources - https://lo.unisa.edu.au/course/view.php?id=33886&sectionid=999441
+Bootstrap - https://getbootstrap.com/
 
 
 # Common Commands
