@@ -1,3 +1,4 @@
+import ReverbSlider from "./ReverbSlider";
 import VolumeSlider from "./VolumeSlider"
 function DJ_Controls() {
     return (
@@ -9,8 +10,7 @@ function DJ_Controls() {
             <br />
             <VolumeSlider/>
 
-            <label htmlFor="reverb_range" className="form-label">Reverb</label>
-            <input type="range" className="form-range" min="0" max="1" step="0.01" id="reverb_range" />
+            <ReverbSlider/>
             <br />
             <br />
             <div class="form-check">
