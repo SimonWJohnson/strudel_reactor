@@ -69,14 +69,34 @@ export default function StrudelDemo() {
 
     const hasRun = useRef(false);
 
-    // 'Play' and 'Stop' buttons
+    // 'Play' button
     const handlePlay = () => {
         globalEditor.evaluate()
     }
-
+    // 'Stop' button
     const handleStop = () => {
         globalEditor.stop()
     }
+    // setCpm
+    const handleCPM = () => {
+        
+    }
+    // Volume
+    const handleVolume = () => {
+
+    }
+    // Reverb
+
+    // instrument1
+
+    // instrument2
+
+    // instrument3
+
+    // Save Settings
+
+    // Load Settings
+
 
 
     // Songtext useEffect state (get, set)

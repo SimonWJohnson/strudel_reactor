@@ -5,6 +5,7 @@ Origin - https://github.com/SimonWJohnson/strudel_reactor/tree/dev
 React Documentation - https://react.dev/
 Strudel documentation - https://strudel.cc/
 Strudel getting started - https://strudel.cc/workshop/getting-started/
+Strudel effects - https://strudel.cc/learn/effects/
 React Assignment Intro Video - https://lo.unisa.edu.au/mod/resource/view.php?id=4142907
 npm specific documentation - https://codeberg.org/uzu/strudel/src/branch/main/packages/repl, https://codeberg.org/uzu/strudel/src/branch/main/packages/web
 course website resources - https://lo.unisa.edu.au/course/view.php?id=33886&sectionid=999441

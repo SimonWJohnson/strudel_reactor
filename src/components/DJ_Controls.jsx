@@ -1,3 +1,4 @@
+import VolumeSlider from "./VolumeSlider"
 function DJ_Controls() {
     return (
         <>
@@ -6,8 +7,7 @@ function DJ_Controls() {
                 <input type="text" class="form-control" id="cpm_text-input" placeholder="120" aria-label="cpm" aria-describedby="cpm_label" />
             </div>
             <br />
-            <label htmlFor="volume_range" className="form-label">Volume</label>
-            <input type="range" className="form-range" min="0" max="1" step="0.01" id="volume_range" />
+            <VolumeSlider/>
 
             <label htmlFor="reverb_range" className="form-label">Reverb</label>
             <input type="range" className="form-range" min="0" max="1" step="0.01" id="reverb_range" />
