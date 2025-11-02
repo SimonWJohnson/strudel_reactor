@@ -67,6 +67,7 @@ const handleD3Data = (event) => {
 
 export default function StrudelDemo() {
 
+    // Handlers
     const hasRun = useRef(false);
 
     // 'Play' button
@@ -82,8 +83,8 @@ export default function StrudelDemo() {
         
     }
     // Volume
-    const handleVolume = () => {
-
+    const handleVolume = (v) => {
+        setVolume(v);
     }
     // Reverb
 
@@ -98,9 +99,12 @@ export default function StrudelDemo() {
     // Load Settings
 
 
-
+    // States
     // Songtext useEffect state (get, set)
     const [songText, setSongText] = useState(stranger_tune)
+
+    // Volume
+    const [volume, setVolume] = useState(0.1)
 
 useEffect(() => {
 
