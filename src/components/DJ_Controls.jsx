@@ -1,5 +1,6 @@
 import ReverbSlider from "./ReverbSlider";
-import VolumeSlider from "./VolumeSlider"
+import VolumeSlider from "./VolumeSlider";
+import InstrumentSelection from "./InstrumentSelection";
 function DJ_Controls() {
     return (
         <>
@@ -9,28 +10,11 @@ function DJ_Controls() {
             </div>
             <br />
             <VolumeSlider/>
-
+            <br />
             <ReverbSlider/>
             <br />
             <br />
-            <div class="form-check">
-                <input className="form-check-input" type="checkbox" value="" id="inst1"/>
-                <label className="form-check-label" htmlFor="checkDefault">
-                        Instrument 1
-                    </label>
-            </div>
-            <div className="form-check">
-                <input className="form-check-input" type="checkbox" value="" id="inst2" />
-                <label className="form-check-label" htmlFor="checkChecked">
-                    Instrument 2
-                    </label>
-            </div>
-            <div className="form-check">
-                <input className="form-check-input" type="checkbox" value="" id="inst3" />
-                <label className="form-check-label" htmlFor="checkChecked">
-                    Instrument 3
-                </label>
-            </div>
+            <InstrumentSelection/>
             <br />
             <div className="mb-3">
                 <label className="form-label d-block" htmlFor="save_settings">Save or Load Settings</label>
