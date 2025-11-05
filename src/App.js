@@ -182,7 +182,9 @@ return (
                         <div id="output" />
                     </div>
                     <div className="col-md-4">
-                        <DJ_Controls />
+                        <DJ_Controls
+                            volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
+                        />
                     </div>
                 </div>
             </div>

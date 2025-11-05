@@ -3,7 +3,7 @@ import VolumeSlider from "./VolumeSlider";
 import InstrumentSelection from "./InstrumentSelection";
 import SaveOrLoadSettings from "./SaveOrLoadSettings";
 import SetCPM from "./SetCPM";
-function DJ_Controls() {
+function DJ_Controls(volume, onVolumeChange) {
     return (
         <>
             <SetCPM/>
