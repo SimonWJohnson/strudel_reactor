@@ -13,6 +13,7 @@ import DJ_Controls from './components/DJ_Controls';
 import PlayButtons from './components/PlayButtons';
 import ProcButtons from './components/ProcButtons';
 import PreprocessTextArea from './components/PreprocessTextArea';
+import VolumeLogic from './Utils/VolumeLogic' 
 
 let globalEditor = null;
 
