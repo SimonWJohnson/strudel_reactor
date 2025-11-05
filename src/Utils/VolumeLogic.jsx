@@ -1,4 +1,4 @@
-function Volume(inputText, volume) {
+function Volume({inputText, volume}) {
 
     //6:48
     let outputText = inputText + "\n//Hello, this is a test";

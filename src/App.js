@@ -73,6 +73,7 @@ export default function StrudelDemo() {
 
     // 'Play' button
     const handlePlay = () => {
+        handleVolume()
         globalEditor.evaluate()
     }
     // 'Stop' button
@@ -113,8 +114,8 @@ export default function StrudelDemo() {
     // 16:28
     useEffect(() => {
         if (state === "play") {
-            handlePlay()
-            handleVolume();
+            handlePlay();
+            //handleVolume();
         }
     }, [volume])
 
