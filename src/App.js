@@ -13,7 +13,7 @@ import DJ_Controls from './components/DJ_Controls';
 import PlayButtons from './components/PlayButtons';
 import ProcButtons from './components/ProcButtons';
 import PreprocessTextArea from './components/PreprocessTextArea';
-import VolumeLogic from './Utils/VolumeLogic' 
+import Volume from './Utils/VolumeLogic' 
 
 let globalEditor = null;
 
@@ -84,8 +84,10 @@ export default function StrudelDemo() {
         
     }
     // Volume
-    const handleVolume = (v) => {
-        setVolume(v);
+    const handleVolume = () => {
+        let outputText = Volume({ inputText: songText, volume: volume });
+        globalEditor.setCode(outputText);
+        globalEditor.evaluate()
     }
     // Reverb
 
@@ -104,8 +106,17 @@ export default function StrudelDemo() {
     // Songtext useEffect state (get, set)
     const [songText, setSongText] = useState(stranger_tune)
 
+    const [state, setState] = useState("stop")
     // Volume
-    const [volume, setVolume] = useState(0.1)
+    const [volume, setVolume] = useState(1)
+
+    // 16:28
+    useEffect(() => {
+        if (state === "play") {
+            handlePlay()
+            handleVolume();
+        }
+    }, [volume])
 
 useEffect(() => {
 
