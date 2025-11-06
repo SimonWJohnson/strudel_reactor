@@ -36,3 +36,74 @@
     transform: rotate(360deg);
   }
 }
+/* DJ Deck Styling */
+body {
+    background: radial-gradient(circle at top, #2a0f4b, 0, #050818 45%, #02030a 100%);
+    color: #f8f9fa;
+}
+
+/* DJ Panel Container*/
+.dj-panel {
+    max-width: 420px;
+    margin: 1.5rem auto;
+    border-radius: 1.5rem;
+    padding: 0.5rem;
+    background: radial-gradient(circle at top left, #3b145f 0, #120b33 40%, #050309 100%);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.25), 0 0 40px rgba(0, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Header */
+.dj-header {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.dj-title {
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f6f0ff;
+    text-shadow: 0 0 6px rgba(255, 0, 255, 0.7), 0 0 14px rgba(0, 255, 255, 0.5);
+}
+
+/* Sliders */
+.form-range {
+    width: 100%;
+    height: 1.2rem;
+    background: transparent;
+    accent-color: #00f7ff;
+}
+
+.form-range::-webkit-slider-thumb {
+    box-shadow: 0 0 8px rgba(0, 247, 255, 0.8);
+}
+
+.form-range::-moz-range-thumb {
+    background-color: #00f7ff;
+    border: 2px solid #0ff;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00f7ff, 0 0 16px rgba(0, 247, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.form-range::-moz-range-thumb:hover {
+    box-shadow: 0 0 12px #00f7ff, 0 0 24px rgba(0, 247, 255, 0.9);
+    transform: scale(1.05);
+}
+
+/* Slider Track */
+.form-range::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #0ff, #9f00ff);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+}
+
+.form-range::-moz-range-track {
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #0ff, #9f00ff);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+}

@@ -11,31 +11,38 @@ import PlayButtons from "./PlayButtons";
 function DJ_Controls({ volume, onVolumeChange, onPlay, onStop }) {
     return (
         <>
-            <div className="list-group">
-                <li className="list-group-item list-group-item-info-text-center">
-                <h1>DJ Controls</h1>
+            <div className="dj-panel list-group">
+                {/* Header */ }
+                <li className="list-group-item dj-list-item dj-header text-center">
+                <h1 className="h1 m-0 dj-title">DJ Controls</h1>
                 </li>
-                <li className="list-group-item list-group-item-action" aria-current="true">
+                {/* Set CPM */ }
+                <li className="list-group-item dj-list-item" aria-current="true">
                     <SetCPM/>
                 </li>
                 <br />
-                <li className="list-group-item list-group-item-action" aria-current="true">
+                {/* Volume */}
+                <li className="list-group-item dj-list-item" aria-current="true">
                     <VolumeSlider volumeChange={volume} onVolumeChange={onVolumeChange}/>
                 </li>
                 <br />
-                <li className="list-group-item list-group-item-action" aria-current="true">
+                {/* Reverb */}
+                <li className="list-group-item dj-list-item" aria-current="true">
                     <ReverbSlider />
                 </li>
                 <br />
-                <li className="list-group-item list-group-item-action" aria-current="true">
+                {/* Instrument */}
+                <li className="list-group-item dj-list-item" aria-current="true">
                     <InstrumentSelection />
                 </li>
                 <br />
-                <li className="list-group-item list-group-item-action" aria-current="true">
+                {/* Save / Load */}
+                <li className="list-group-item dj-list-item" aria-current="true">
                     <SaveOrLoadSettings />
                 </li>
                 <br />
-                <li className="list-group-item list-group-item-action" aria-current="true">
+                {/* Play / Pause / Stop */}
+                <li className="list-group-item dj-list-item" aria-current="true">
                     <PlayButtons onPlay={onPlay} onStop={onStop} />
                 </li>
                 <br />

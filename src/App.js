@@ -186,13 +186,6 @@ return (
                         <div id="editor" />
                         <div id="output" />
                     </div>
-                    { /* play buttons */}
-                    {/*<div className="col-md-4">*/}
-                    {/*    <nav>*/}
-                    {/*        <br />*/}
-                    {/*        <PlayButtons onPlay={handlePlay} onStop={handleStop} />*/}
-                    {/*    </nav>*/}
-                    {/*</div>*/}
                 </div>
             </div>
             <canvas id="roll"></canvas>
