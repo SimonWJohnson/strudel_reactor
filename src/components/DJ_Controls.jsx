@@ -3,8 +3,12 @@ import VolumeSlider from "./VolumeSlider";
 import InstrumentSelection from "./InstrumentSelection";
 import SaveOrLoadSettings from "./SaveOrLoadSettings";
 import SetCPM from "./SetCPM";
-{ /* https://getbootstrap.com/docs/5.3/components/list-group/ */}
-function DJ_Controls({ volume, onVolumeChange }) {
+import PlayButtons from "./PlayButtons";
+
+{ /* https://getbootstrap.com/docs/5.3/components/list-group/ */ }
+
+
+function DJ_Controls({ volume, onVolumeChange, onPlay, onStop }) {
     return (
         <>
             <div className="list-group">
@@ -31,10 +35,11 @@ function DJ_Controls({ volume, onVolumeChange }) {
                     <SaveOrLoadSettings />
                 </li>
                 <br />
+                <li className="list-group-item list-group-item-action" aria-current="true">
+                    <PlayButtons onPlay={onPlay} onStop={onStop} />
+                </li>
+                <br />
             </div>
-            
-            
-            
         </>
   );
 }
