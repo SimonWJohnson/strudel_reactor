@@ -73,6 +73,7 @@ export default function StrudelDemo() {
 
     // 'Play' button
     const handlePlay = () => {
+        let outputText = Volume({inputText: songText, volume: volume})
         handleVolume()
         globalEditor.evaluate()
     }
@@ -164,28 +165,33 @@ return (
     <div>
         <h2>Strudel Demo</h2>
         <main>
+            {/*Header bar*/ }
             <div className="container-fluid">
                 <div className="row">
+                    { /* Preprocessing text area */}
                     <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                         <PreprocessTextArea defaultValue={songText} onChange={(e) => setSongText(e.target.value)} />
                     </div>
+                    { /* DJ Controls */}
+                    <div className="col-md-4">
+                        <DJ_Controls
+                            volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
+                        />
+                    </div>
+                    { /* play buttons */}
                     <div className="col-md-4">
                         <nav>
-                            <ProcButtons/>
+                            <ProcButtons />
                             <br />
                             <PlayButtons onPlay={handlePlay} onStop={handleStop} />
                         </nav>
                     </div>
                 </div>
                 <div className="row">
+                    { /* REPL */}
                     <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                         <div id="editor" />
                         <div id="output" />
-                    </div>
-                    <div className="col-md-4">
-                        <DJ_Controls
-                            volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
-                        />
                     </div>
                 </div>
             </div>

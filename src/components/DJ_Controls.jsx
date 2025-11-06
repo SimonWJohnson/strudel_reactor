@@ -3,19 +3,38 @@ import VolumeSlider from "./VolumeSlider";
 import InstrumentSelection from "./InstrumentSelection";
 import SaveOrLoadSettings from "./SaveOrLoadSettings";
 import SetCPM from "./SetCPM";
-function DJ_Controls() {
+{ /* https://getbootstrap.com/docs/5.3/components/list-group/ */}
+function DJ_Controls({ volume, onVolumeChange }) {
     return (
         <>
-            <SetCPM/>
-            <br />
-            <VolumeSlider/>
-            <br />
-            <ReverbSlider/>
-            <br />
-            <br />
-            <InstrumentSelection/>
-            <br />
-            <SaveOrLoadSettings/>
+            <div className="list-group">
+                <li className="list-group-item list-group-item-info-text-center">
+                <h1>DJ Controls</h1>
+                </li>
+                <li className="list-group-item list-group-item-action" aria-current="true">
+                    <SetCPM/>
+                </li>
+                <br />
+                <li className="list-group-item list-group-item-action" aria-current="true">
+                    <VolumeSlider volumeChange={volume} onVolumeChange={onVolumeChange}/>
+                </li>
+                <br />
+                <li className="list-group-item list-group-item-action" aria-current="true">
+                    <ReverbSlider />
+                </li>
+                <br />
+                <li className="list-group-item list-group-item-action" aria-current="true">
+                    <InstrumentSelection />
+                </li>
+                <br />
+                <li className="list-group-item list-group-item-action" aria-current="true">
+                    <SaveOrLoadSettings />
+                </li>
+                <br />
+            </div>
+            
+            
+            
         </>
   );
 }
