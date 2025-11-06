@@ -2,9 +2,9 @@ function ReverbSlider(reverb, onReverbChange) {
     // Debugging logic
     const handleMouseUp = (e) => {
         const value = parseFloat(e.target.value);
-        console.log("ReverbSlider: ", value);
+        console.log("ReverbSlider: ", value, "onReverbChange type: ", typeof onReverbChange);
         onReverbChange(value);
-    }
+    };
     return (
         <>
             <label htmlFor="reverb_range" className="form-label">Reverb</label>
