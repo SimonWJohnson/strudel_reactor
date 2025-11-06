@@ -107,3 +107,8 @@ body {
     background: linear-gradient(90deg, #0ff, #9f00ff);
     box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
 }
+
+/* Dim the Dj Panel background */
+.dj-panel {
+
+}
