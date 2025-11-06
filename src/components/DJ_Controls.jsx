@@ -23,8 +23,8 @@ function DJ_Controls({ volume, onVolumeChange, onPlay, onStop }) {
                 <br />
                 {/* Volume */}
                 <li className="list-group-item dj-list-item" aria-current="true">
-                    {/*<VolumeSlider volumeChange={volume} onVolumeChange={onVolumeChange}/>*/}
-                    <VolumeSlider volume={volume} onVolumeChange={onVolumeChange}/>
+                    {/*<VolumeSlider volume={volume} onVolumeChange={onVolumeChange} />*/}
+                    <VolumeSlider volume={volume} onVolumeChange={onVolumeChange} />
                 </li>
                 <br />
                 {/* Reverb */}

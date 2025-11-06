@@ -90,10 +90,22 @@ export default function StrudelDemo() {
     }
     // Volume
     // I wanted this logic to be it's own component...
-    const handleVolume = () => {
-        //let outputText = Volume({ inputText: songText, volume: volume });
-        //globalEditor.setCode(outputText);
-        //globalEditor.evaluate()
+    /*
+     * Logic Flow
+     * VolumeSLider calls onVolumeChange() on onMouseUp
+     * the onVolumeChange prop is forwarded to DJ_Controls
+     * In App.js, onVolumeChange is actually handleVolume():
+     * updates the state
+     * reapplies the Strudel code with the new {$VOLUME} while playing 
+    */
+    const handleVolume = (newVolume) => {
+        setVolume(newVolume);
+        // Debugging
+        console.log("handleVolume called with: ", newVolume);
+
+        let outputText = Volume({ inputText: songText, volume: newVolume });
+        globalEditor.setCode(outputText);
+        globalEditor.evaluate();
     }
     // Reverb
 
@@ -125,6 +137,11 @@ export default function StrudelDemo() {
             //handleVolume();
         }
     }, [volume])
+
+    // Debugging
+    useEffect(() => {
+        console.log("Volume state is now: ", volume);
+    }, [volume]);
 
 useEffect(() => {
 
@@ -198,7 +215,8 @@ useEffect(() => {
                         <div className="col-md-4">
                             <DJ_Controls
                                 volume={volume}
-                                onVolumeChange={(e) => setVolume(e.target.value)} // ** possible issue here **
+                                //onVolumeChange={(e) => setVolume(e.target.value)} // ** possible issue here **
+                                onVolumeChange={handleVolume}
                                 onPlay={handlePlay}
                                 onStop={handleStop}
                             />

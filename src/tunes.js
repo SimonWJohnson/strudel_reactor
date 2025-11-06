@@ -82,7 +82,7 @@ stack(
 
 drums2: 
 stack(
-  s("[~ hh]*4").bank("RolandTR808").room(0.3).speed(0.75).gain(1.2),
+  s("[~ hh]*4").bank("RolandTR808").room(0.3).speed(0.75).gain(1.2*{$VOLUME}),
   s("hh").struct("x*16").bank("RolandTR808")
   .gain(0.6)
   .jux(rev)
