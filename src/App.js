@@ -13,58 +13,14 @@ import DJ_Controls from './components/DJ_Controls';
 import PlayButtons from './components/PlayButtons';
 import ProcButtons from './components/ProcButtons';
 import PreprocessTextArea from './components/PreprocessTextArea';
-import Volume from './Utils/VolumeLogic' 
+import Volume from './Utils/VolumeLogic'; 
+import Reverb from './Utils/ReverbLogic';
 
 let globalEditor = null;
 
 const handleD3Data = (event) => {
     console.log(event.detail);
 };
-
-//export function SetupButtons() {
-
-//    document.getElementById('play').addEventListener('click', () => globalEditor.evaluate());
-//    document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
-//    document.getElementById('process').addEventListener('click', () => {
-//        Proc()
-//    }
-//    )
-//    document.getElementById('process_play').addEventListener('click', () => {
-//        if (globalEditor != null) {
-//            Proc()
-//            globalEditor.evaluate()
-//        }
-//    }
-//    )
-//}
-
-
-
-//export function ProcAndPlay() {
-//    if (globalEditor != null && globalEditor.repl.state.started == true) {
-//        console.log(globalEditor)
-//        Proc()
-//        globalEditor.evaluate();
-//    }
-//}
-
-//export function Proc() {
-
-//    let proc_text = document.getElementById('proc').value
-//    let proc_text_replaced = proc_text.replaceAll('<p1_Radio>', ProcessText);
-//    ProcessText(proc_text);
-//    globalEditor.setCode(proc_text_replaced)
-//}
-
-//export function ProcessText(match, ...args) {
-
-//    let replace = ""
-//    //if (document.getElementById('flexRadioDefault2').checked) {
-//    //    replace = "_"
-//    //}
-
-//    return replace
-//}
 
 export default function StrudelDemo() {
 
@@ -109,6 +65,7 @@ export default function StrudelDemo() {
     }
     // Reverb
 
+
     // instrument1
 
     // instrument2
@@ -128,6 +85,8 @@ export default function StrudelDemo() {
     const [state, setState] = useState("stop");
     // Volume
     const [volume, setVolume] = useState(1);
+    // Reverb
+    const [reverb, setReverb] = useState(0.4);
 
     // 16:28
     // Slider value passed into this useEffect

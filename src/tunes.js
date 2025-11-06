@@ -98,6 +98,10 @@ stack(
   .rarely(jux(rev)),
 )
 
+// REVERB
+// Add a global room reverb to all tracks
+all(x => x.room({$REVERB}))
+
 //Debugging test_pattern
 //test_volume:
 //  s("bd*4")
