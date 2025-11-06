@@ -70,6 +70,14 @@ export default function StrudelDemo() {
         globalEditor.evaluate();
     }
     // Reverb
+    /*
+     * Logic Flow
+     * ReverbSlider calls onReverbChange() on onMouseUp
+     * the onReverbChange prop is forwarded to DJ_Controls
+     * In App.js, onReverbChange is actually handleReverb():
+     * updates the state
+     * reapplies the Strudel code with the new {$REVERB} while playing 
+    */
     const handleReverb = (newReverb) => {
         // Debugging
         console.log("handleReverb: ", newReverb);
