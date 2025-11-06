@@ -161,36 +161,50 @@ useEffect(() => {
 }, [songText]);
 
 
-return (
-    <div>
-        <h2>Strudel Demo</h2>
-        <main>
-            {/*Header bar*/ }
-            <div className="container-fluid">
-                <div className="row">
-                    { /* Preprocessing text area */}
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <PreprocessTextArea defaultValue={songText} onChange={(e) => setSongText(e.target.value)} />
+    return (
+        <div>
+            <h2>Strudel Demo</h2>
+            <main>
+                <div className="container-fluid">
+                    {/* ROW 1: Left = Preprocess + REPL, Right = DJ Controls */}
+                    <div className="row">
+                        {/* LEFT COLUMN */}
+                        <div className="col-md-8 d-flex flex-column">
+                            {/* Preprocessing text area */}
+                            <div style={{ maxHeight: "50vh", overflowY: "auto" }}>
+                                <PreprocessTextArea
+                                    defaultValue={songText}
+                                    onChange={(e) => setSongText(e.target.value)}
+                                />
+                            </div>
+
+                            {/* REPL */}
+                            <div className="mt-3" style={{ maxHeight: "50vh", overflowY: "auto" }}>
+                                <div id="editor" />
+                                <div id="output" />
+                            </div>
+                        </div>
+
+                        {/* RIGHT COLUMN – DJ Controls */}
+                        <div className="col-md-4">
+                            <DJ_Controls
+                                volume={volume}
+                                onVolumeChange={(e) => setVolume(e.target.value)}
+                                onPlay={handlePlay}
+                                onStop={handleStop}
+                            />
+                        </div>
                     </div>
-                    { /* DJ Controls */}
-                    <div className="col-md-4">
-                        <DJ_Controls
-                            volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
-                            onPlay={handlePlay} onStop={handleStop}
-                        />
+
+                    {/* ROW 2: Piano roll */}
+                    <div className="row mt-3">
+                        <div className="col-12">
+                            <canvas id="roll" className="roll-canvas"></canvas>
+                        </div>
                     </div>
                 </div>
-                <div className="row">
-                    { /* REPL */}
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <div id="editor" />
-                        <div id="output" />
-                    </div>
-                </div>
-            </div>
-            <canvas id="roll"></canvas>
-        </main >
-    </div >
+            </main>
+        </div>
 );
 
 
