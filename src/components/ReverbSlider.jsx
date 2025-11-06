@@ -1,4 +1,4 @@
-function ReverbSlider(reverb, onReverbChange) {
+function ReverbSlider({reverb, onReverbChange}) {
     // Debugging logic
     const handleMouseUp = (e) => {
         const value = parseFloat(e.target.value);
