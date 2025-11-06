@@ -31,8 +31,12 @@ export default function StrudelDemo() {
     const handlePlay = () => {
         // Error handling for when app 'crashes' after hot reload
         if (!globalEditor) return;
-        let outputText = Volume({inputText: songText, volume: volume})
-        //handleVolume();
+
+        // Apply the volume tags first
+        let outputText = Volume({ inputText: songText, volume: volume });
+        // Then apply the reverb tags
+        outputText = Reverb({ inputText: outputText, reverb });
+
         globalEditor.setCode(outputText);
         globalEditor.evaluate();
     }
@@ -45,7 +49,6 @@ export default function StrudelDemo() {
         
     }
     // Volume
-    // I wanted this logic to be it's own component...
     /*
      * Logic Flow
      * VolumeSLider calls onVolumeChange() on onMouseUp
@@ -59,12 +62,27 @@ export default function StrudelDemo() {
         // Debugging
         console.log("handleVolume called with: ", newVolume);
 
+        // Rebuild both tags so they stay in sync
         let outputText = Volume({ inputText: songText, volume: newVolume });
+        outputText = Reverb({ inputText: outputText, reverb });
+
         globalEditor.setCode(outputText);
         globalEditor.evaluate();
     }
     // Reverb
+    const handleReverb = (newReverb) => {
+        // Debugging
+        console.log("handleReverb: ", newReverb);
 
+        setReverb(newReverb);
+        
+        // Rebuild both tags so they stay in sync
+        let outputText = Volume({ inputText: songText, volume});
+        outputText = Reverb({ inputText: outputText, reverb: reverb});
+
+        globalEditor.setCode(outputText);
+        globalEditor.evaluate();
+    }
 
     // instrument1
 
@@ -93,7 +111,6 @@ export default function StrudelDemo() {
     useEffect(() => {
         if (state === "play") {
             handlePlay();
-            //handleVolume();
         }
     }, [volume])
 
@@ -169,13 +186,14 @@ useEffect(() => {
                                 <div id="output" />
                             </div>
                         </div>
-
                         {/* RIGHT COLUMN – DJ Controls */}
                         <div className="col-md-4">
                             <DJ_Controls
                                 volume={volume}
                                 //onVolumeChange={(e) => setVolume(e.target.value)} // ** possible issue here **
                                 onVolumeChange={handleVolume}
+                                reverb={reverb}
+                                onReverbChange={handleReverb}
                                 onPlay={handlePlay}
                                 onStop={handleStop}
                             />

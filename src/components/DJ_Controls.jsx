@@ -8,7 +8,7 @@ import PlayButtons from "./PlayButtons";
 { /* https://getbootstrap.com/docs/5.3/components/list-group/ */ }
 
 
-function DJ_Controls({ volume, onVolumeChange, onPlay, onStop }) {
+function DJ_Controls({ volume, onVolumeChange, reverb, onReverbChange, onPlay, onStop }) {
     return (
         <>
             <div className="dj-panel list-group">
@@ -29,7 +29,7 @@ function DJ_Controls({ volume, onVolumeChange, onPlay, onStop }) {
                 <br />
                 {/* Reverb */}
                 <li className="list-group-item dj-list-item" aria-current="true">
-                    <ReverbSlider />
+                    <ReverbSlider reverb={reverb} onReverbChange={onReverbChange} />
                 </li>
                 <br />
                 {/* Instrument */}
