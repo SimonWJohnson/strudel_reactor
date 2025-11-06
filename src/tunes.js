@@ -97,6 +97,14 @@ stack(
   .speed(0.5)
   .rarely(jux(rev)),
 )
+
+//Debugging test_pattern
+//test_volume:
+//  s("bd*4")
+//  .sound("supersaw")
+//  .gain(1*{$VOLUME})
+
+
 //Remixed and reproduced from Algorave Dave's code found here: https://www.youtube.com/watch?v=ZCcpWzhekEY
 // all(x => x.gain(mouseX.range(0,1)))
 // all(x => x.log())
