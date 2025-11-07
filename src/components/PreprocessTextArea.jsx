@@ -1,7 +1,9 @@
 function PreprocessTextArea({defaultValue, onChange }) {
   return (
       <>
-          <label htmlFor="exampleFormControlTextarea1" className="form-label">Drop the beats here son...</label>
+          <div className="dj-subtitle-zone">
+              <label htmlFor="exampleFormControlTextarea1" className="h3 m-0 dj-subtitle">Drop the beats here son...</label>
+          </div>          
           <textarea className="form-control" rows="15" defaultValue={defaultValue} onChange={onChange} id="proc" ></textarea>
       </>
   );

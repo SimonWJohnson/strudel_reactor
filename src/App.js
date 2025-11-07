@@ -173,7 +173,7 @@ useEffect(() => {
 
     return (
         <div>
-            <h2>Strudel Demo</h2>
+            <h2 className="h1 m-0 dj-subtitle">Strudel Demo</h2>
             <main>
                 <div className="container-fluid">
                     {/* ROW 1: Left = Preprocess + REPL, Right = DJ Controls */}
