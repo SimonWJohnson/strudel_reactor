@@ -104,8 +104,6 @@ export default function StrudelDemo() {
 
 
     // States
-    //const [procText, setProcText] = useState(algorave_dave_tune)
-    // Songtext useEffect state (get, set)
     const [songText, setSongText] = useState(stranger_tune);
 
     const [state, setState] = useState("stop");
@@ -114,7 +112,7 @@ export default function StrudelDemo() {
     // Reverb
     const [reverb, setReverb] = useState(0.4);
 
-    // 16:28
+
     // Slider value passed into this useEffect
     useEffect(() => {
         if (state === "play") {
@@ -159,15 +157,13 @@ useEffect(() => {
                     await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
                 },
             });
-        //17:17
+
         document.getElementById('proc').value = songText
 
-        //document.getElementById('proc').value = stranger_tune
         globalEditor.setCode(songText)
-        //SetupButtons()
-        //Proc()
+
     }
-    //globalEditor.setCode(songText);
+
 }, [songText]);
 
 
@@ -198,7 +194,6 @@ useEffect(() => {
                         <div className="col-md-4">
                             <DJ_Controls
                                 volume={volume}
-                                //onVolumeChange={(e) => setVolume(e.target.value)} // ** possible issue here **
                                 onVolumeChange={handleVolume}
                                 reverb={reverb}
                                 onReverbChange={handleReverb}
