@@ -15,6 +15,7 @@ import ProcButtons from './components/ProcButtons';
 import PreprocessTextArea from './components/PreprocessTextArea';
 import Volume from './Utils/VolumeLogic'; 
 import Reverb from './Utils/ReverbLogic';
+import applyCPM from './Utils/CPMLogic';
 
 let globalEditor = null;
 
@@ -31,12 +32,15 @@ export default function StrudelDemo() {
     const handlePlay = () => {
         // Error handling for when app 'crashes' after hot reload
         if (!globalEditor) return;
-
+        // Apply the CPM change
+        let outputText = applyCPM({ inputText: songText, cpm })
         // Apply the volume tags first
-        let outputText = Volume({ inputText: songText, volume: volume });
+        /*let */outputText = Volume({ inputText: songText, volume: volume });
         // Then apply the reverb tags
         outputText = Reverb({ inputText: outputText, reverb });
 
+        // Debugging
+        console.log("FINAL CODE >>>\n", outputText.slice(0, 200));
         globalEditor.setCode(outputText);
         globalEditor.evaluate();
     }
@@ -46,7 +50,12 @@ export default function StrudelDemo() {
     }
     // setCpm
     const handleCPM = () => {
-        
+        // Error handling for when app 'crashes' after hot reload
+        if (!globalEditor) return;
+        // Apply the CPM tag
+        const outputText = applyCPM({ inputText: songText, cpm });
+        globalEditor.setCode(outputText);
+        globalEditor.evaluate();
     }
     // Volume
     /*
@@ -111,7 +120,8 @@ export default function StrudelDemo() {
     const [volume, setVolume] = useState(1);
     // Reverb
     const [reverb, setReverb] = useState(0.4);
-
+    // CPM
+    const [cpm, setCpm] = useState(120);
 
     // Slider value passed into this useEffect
     useEffect(() => {
@@ -199,6 +209,8 @@ useEffect(() => {
                                 onReverbChange={handleReverb}
                                 onPlay={handlePlay}
                                 onStop={handleStop}
+                                cpm={cpm}
+                                onCpmChange={handleCPM}
                             />
                         </div>
                     </div>

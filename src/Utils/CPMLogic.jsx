@@ -1,8 +1,10 @@
 
-function applyCPM(inputText, cpmValue) {
+function applyCPM({inputText, cpm}) {
+    // start from the curent song text
     let outputText = inputText;
-    outputText = inputText;
-    outputText = outputText.replaceAll("{$CPM}", cpmValue);
+    // replace all {$CPM} tags with the current value
+    outputText = outputText.replaceAll("{$CPM}", cpm);
+    // return the processed result
     return outputText;
 }
 

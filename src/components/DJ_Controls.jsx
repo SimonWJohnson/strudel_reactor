@@ -8,7 +8,7 @@ import PlayButtons from "./PlayButtons";
 { /* https://getbootstrap.com/docs/5.3/components/list-group/ */ }
 
 
-function DJ_Controls({ volume, onVolumeChange, reverb, onReverbChange, onPlay, onStop }) {
+function DJ_Controls({ volume, onVolumeChange, reverb, onReverbChange, onPlay, onStop, cpm, onCpmChange }) {
     return (
         <>
             <div className="dj-panel list-group">
@@ -18,7 +18,7 @@ function DJ_Controls({ volume, onVolumeChange, reverb, onReverbChange, onPlay, o
                 </li>
                 {/* Set CPM */ }
                 <li className="list-group-item dj-list-item" aria-current="true">
-                    <SetCPM/>
+                    <SetCPM cpm={cpm} onCpmChange={onCpmChange} />
                 </li>
                 <br />
                 {/* Volume */}
