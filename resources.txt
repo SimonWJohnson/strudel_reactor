@@ -10,6 +10,7 @@ React Assignment Intro Video - https://lo.unisa.edu.au/mod/resource/view.php?id=
 npm specific documentation - https://codeberg.org/uzu/strudel/src/branch/main/packages/repl, https://codeberg.org/uzu/strudel/src/branch/main/packages/web
 course website resources - https://lo.unisa.edu.au/course/view.php?id=33886&sectionid=999441
 Bootstrap - https://getbootstrap.com/
+D3 Graph - https://lo.unisa.edu.au/mod/resource/view.php?id=4144147
 
 
 # Common Commands
