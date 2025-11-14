@@ -28,19 +28,48 @@ export default function StrudelDemo() {
     // Handlers
     const hasRun = useRef(false);
 
+    // 'Master' Build Component for modularity
+    //const masterBuild = ({volume: volume, reverb: reverb, cpm: cpm } = {}) => {
+    //    let outputText = songText;
+    //    outputText = applyCPM({ inputText: outputText, cpm: cpm }) // CPM first
+    //    outputText = Volume({ inputText: outputText, volume: volume })
+    //    outputText = Reverb({ inputText: outputText, reverb: reverb })
+
+    //    // token sanitisation
+    //    outputText = outputText
+    //        .replace(/\{\s*\$CPM\s*\}/g, String((Number(cpm) || 120) / 60 / 4))
+    //        .replace(/\{\s*\$VOLUME\s*\}/g, String(Number(volume) || 1))
+    //        .replace(/\{\s*\$REVERB\s*\}/g, String(Number(reverb) || 0));
+
+    //    return outputText;
+    //}
+
     // 'Play' button
     const handlePlay = () => {
         // Error handling for when app 'crashes' after hot reload
         if (!globalEditor) return;
+
+       //const mBuild = masterBuild(); // uses current state
         // Apply the CPM change
-        let outputText = applyCPM({ inputText: songText, cpm })
+        //console.log("cpm state = ", cpm)
+        //let outputText = applyCPM({ inputText: songText, cpm })
+        //const cps = (Number(cpm) || 120) / 60 / 4; // 4 bars/cycle
+        //songText = outputText.replaceAll("{$CPM}", String(cps));
         // Apply the volume tags first
-        /*let */outputText = Volume({ inputText: songText, volume: volume });
+        let outputText = Volume({ inputText: songText, volume: volume });
         // Then apply the reverb tags
         outputText = Reverb({ inputText: outputText, reverb });
 
-        // Debugging
-        console.log("FINAL CODE >>>\n", outputText.slice(0, 200));
+        //// Safety: if a token slipped through (e.g. stray spaces), replace again
+        //if (/\{\s*\$CPM\s*\}/.test(outputText)) {
+        //    const cps = (Number(cpm) || 120) / 60 / 4;
+        //    outputText = outputText.replace(/\{\s*\$CPM\s*\}/g, String(cps));
+        //}
+
+        // CPM Debugging
+        //console.log("FINAL CODE >>>\n", outputText.slice(0, 200));
+        //console.log("FIRST LINE:", outputText.split("\n")[0]);       // should be: setcps(0.5)
+        //console.log("Has tag left?", outputText.includes("{$CPM}")); // should be: false
         globalEditor.setCode(outputText);
         globalEditor.evaluate();
     }
@@ -49,13 +78,20 @@ export default function StrudelDemo() {
         globalEditor.stop()
     }
     // setCpm
-    const handleCPM = () => {
-        // Error handling for when app 'crashes' after hot reload
-        if (!globalEditor) return;
+    const handleCPM = (newCpm) => {
         // Apply the CPM tag
-        const outputText = applyCPM({ inputText: songText, cpm });
-        globalEditor.setCode(outputText);
-        globalEditor.evaluate();
+        //setCpm(newCpm);
+        // Error handling for when app 'crashes' after hot reload
+        //if (!globalEditor) return;
+        //const mBuild = masterBuild({ cpm: newCpm })
+        //const outputText = applyCPM({ inputText: songText, cpm });
+        //const outputText = applyCPM({ inputText: songText, cpm });
+        //globalEditor.setCode(outputText);
+        //console.log("first line:", mBuild.split("\n")[0]);            // should be setcps(...)
+        //console.log("has {$CPM} left?", mBuild.includes("{$CPM}"));   // should be false
+        //console.log("contains 'undefined'?", mBuild.includes("undefined"));
+        //globalEditor.setCode(mBuild);
+        //globalEditor.evaluate();
     }
     // Volume
     /*
@@ -69,13 +105,15 @@ export default function StrudelDemo() {
     const handleVolume = (newVolume) => {
         setVolume(newVolume);
         // Debugging
-        console.log("handleVolume called with: ", newVolume);
-
+        //console.log("handleVolume called with: ", newVolume);
+        if (!globalEditor) return;
+        //const mBuild = masterBuild({ volume: newVolume });
         // Rebuild both tags so they stay in sync
         let outputText = Volume({ inputText: songText, volume: newVolume });
         outputText = Reverb({ inputText: outputText, reverb });
 
         globalEditor.setCode(outputText);
+        //globalEditor.setCode(mBuild);
         globalEditor.evaluate();
     }
     // Reverb
@@ -92,12 +130,15 @@ export default function StrudelDemo() {
         console.log("handleReverb: ", newReverb);
 
         setReverb(newReverb);
-        
+        if (!globalEditor) return;
+        //const mBuild = masterBuild({reverb: newReverb});
+
         // Rebuild both tags so they stay in sync
         let outputText = Volume({ inputText: songText, volume});
         outputText = Reverb({ inputText: outputText, reverb: reverb});
 
         globalEditor.setCode(outputText);
+       //globalEditor.setCode(mBuild);
         globalEditor.evaluate();
     }
 
@@ -121,7 +162,7 @@ export default function StrudelDemo() {
     // Reverb
     const [reverb, setReverb] = useState(0.4);
     // CPM
-    const [cpm, setCpm] = useState(120);
+    //const [cpm, setCpm] = useState(120);
 
     // Slider value passed into this useEffect
     useEffect(() => {
@@ -209,8 +250,7 @@ useEffect(() => {
                                 onReverbChange={handleReverb}
                                 onPlay={handlePlay}
                                 onStop={handleStop}
-                                cpm={cpm}
-                                onCpmChange={handleCPM}
+                                //cpm={cpm}                                //onCpmChange={setCpm}                              /*onCpmChange={(val) => setCpm(val)} // pass the setter*/
                             />
                         </div>
                     </div>
