@@ -135,7 +135,7 @@ export default function StrudelDemo() {
 
         // Rebuild both tags so they stay in sync
         let outputText = Volume({ inputText: songText, volume});
-        outputText = Reverb({ inputText: outputText, reverb: reverb});
+        outputText = Reverb({ inputText: outputText, reverb: newReverb});
 
         globalEditor.setCode(outputText);
        //globalEditor.setCode(mBuild);
