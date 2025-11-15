@@ -1,4 +1,6 @@
-function InstrumentSelection({ value = {}, onChange = () => { } }) {
+function InstrumentSelection({ value = {}, onChange = () => { },
+    
+}) {
     // helper function to toggle each instrument by key
     const keyToggle = (key) => {
         // Create a new object for the state change
@@ -7,6 +9,11 @@ function InstrumentSelection({ value = {}, onChange = () => { } }) {
 
     return (
         <>
+            <div className="mb-2 text-center">
+                <h5 className="m-0 dj-title" style={{ fontWeight: "600", letterSpacing: "0.5px" }}>
+                    Instrument Mute
+                </h5>
+            </div>
             <div className="form-check">
                 <input className="form-check-input"
                     type="checkbox"
