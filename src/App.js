@@ -142,11 +142,12 @@ export default function StrudelDemo() {
         globalEditor.evaluate();
     }
 
-    // instrument1
-
-    // instrument2
-
-    // instrument3
+    // Instrument Selection (Mute)
+    const [instrumentMute, setInstrumentMute] = useState({
+        inst1: false, // Bassline
+        inst2: false, // Main Arpeggiator
+        inst3: false, // Drums
+    });
 
     // Save Settings
 
