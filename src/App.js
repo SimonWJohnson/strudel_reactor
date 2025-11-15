@@ -76,6 +76,12 @@ export default function StrudelDemo() {
         globalEditor.setCode(outputText);
         globalEditor.evaluate();
     }
+
+    // 'Pause' Button
+    const handlePause = async () => {
+
+    } 
+
     // 'Stop' button
     const handleStop = () => {
         globalEditor.stop()
