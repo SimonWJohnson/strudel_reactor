@@ -16,6 +16,7 @@ import PreprocessTextArea from './components/PreprocessTextArea';
 import Volume from './Utils/VolumeLogic'; 
 import Reverb from './Utils/ReverbLogic';
 import applyCPM from './Utils/CPMLogic';
+import InstrumentMute from './Utils/InstrumentLogic';
 
 let globalEditor = null;
 
@@ -59,6 +60,8 @@ export default function StrudelDemo() {
         let outputText = Volume({ inputText: songText, volume: volume });
         // Then apply the reverb tags
         outputText = Reverb({ inputText: outputText, reverb });
+        // Then apply the instrument mute
+        outputText = InstrumentMute({ inputText: outputText, muteMap: instrumentMute });
 
         //// Safety: if a token slipped through (e.g. stray spaces), replace again
         //if (/\{\s*\$CPM\s*\}/.test(outputText)) {
@@ -111,6 +114,7 @@ export default function StrudelDemo() {
         // Rebuild both tags so they stay in sync
         let outputText = Volume({ inputText: songText, volume: newVolume });
         outputText = Reverb({ inputText: outputText, reverb });
+        outputText = InstrumentMute({ inputText: outputText, muteMap: instrumentMute });
 
         globalEditor.setCode(outputText);
         //globalEditor.setCode(mBuild);
@@ -135,23 +139,30 @@ export default function StrudelDemo() {
 
         // Rebuild both tags so they stay in sync
         let outputText = Volume({ inputText: songText, volume});
-        outputText = Reverb({ inputText: outputText, reverb: newReverb});
+        outputText = Reverb({ inputText: outputText, reverb: newReverb });
+        outputText = InstrumentMute({ inputText: outputText, muteMap: instrumentMute });
 
         globalEditor.setCode(outputText);
        //globalEditor.setCode(mBuild);
         globalEditor.evaluate();
     }
-
-    // instrument1
-
-    // instrument2
-
-    // instrument3
-
+    
     // Save Settings
 
     // Load Settings
 
+    // Instrument Mute
+    const handleInstrumentMute = (newMap) => {
+        setInstrumentMute(newMap);
+        if (!globalEditor) return;
+
+        let outputText = Volume({ inputText: songText, volume });
+        outputText = Reverb({ inputText: outputText, reverb: reverb });
+        outputText = InstrumentMute({ inputText: outputText, muteMap: newMap });
+
+        globalEditor.setCode(outputText);
+        globalEditor.evaluate(); // stacktrace
+    }
 
     // States
     const [songText, setSongText] = useState(stranger_tune);
@@ -163,6 +174,13 @@ export default function StrudelDemo() {
     const [reverb, setReverb] = useState(0.4);
     // CPM
     //const [cpm, setCpm] = useState(120);
+
+    // Instrument Selection (Mute)
+    const [instrumentMute, setInstrumentMute] = useState({
+        bassline: false, // Bassline
+        main_arp: false, // Main Arpeggiator
+        drums: false, // Drums
+    });
 
     // Slider value passed into this useEffect
     useEffect(() => {
@@ -250,6 +268,8 @@ useEffect(() => {
                                 onReverbChange={handleReverb}
                                 onPlay={handlePlay}
                                 onStop={handleStop}
+                                instrumentMute={instrumentMute}
+                                onInstrumentMuteChange={handleInstrumentMute}
                                 //cpm={cpm}                                //onCpmChange={setCpm}                              /*onCpmChange={(val) => setCpm(val)} // pass the setter*/
                             />
                         </div>

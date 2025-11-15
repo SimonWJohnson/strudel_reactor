@@ -48,7 +48,7 @@ const arpeggiator2 = [
 const pattern = 0
 const bass = 0
 
-bassline:
+{$_BASSLINE}bassline:
 note(pick(basslines, bass))
 .sound("supersaw")
 .postgain(2)
@@ -59,7 +59,7 @@ note(pick(basslines, bass))
 .gain(1*{$VOLUME})
 
 
-main_arp: 
+{$_MAIN_ARP}main_arp: 
 note(pick(arpeggiator1, "<0 1 2 3>/2"))
 .sound("supersaw")
 .lpf(300)
@@ -70,7 +70,7 @@ note(pick(arpeggiator1, "<0 1 2 3>/2"))
 .postgain(pick(gain_patterns, pattern))
 
 
-drums:
+{$_DRUMS}drums:
 stack(
   s("tech:5")
   .postgain(6)
