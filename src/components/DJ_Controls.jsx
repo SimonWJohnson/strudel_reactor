@@ -10,7 +10,7 @@ import PlayButtons from "./PlayButtons";
 
 function DJ_Controls({ volume, onVolumeChange,
     reverb, onReverbChange,
-    onPlay, onStop,
+    onPlay, onPause, onStop,
     cpm, onCpmChange,
     instrumentMute, onInstrumentMuteChange }) {
     return (
@@ -47,7 +47,7 @@ function DJ_Controls({ volume, onVolumeChange,
                 <br />
                 {/* Play / Pause / Stop */}
                 <li className="list-group-item dj-list-item" aria-current="true">
-                    <PlayButtons onPlay={onPlay} onStop={onStop} />
+                    <PlayButtons onPlay={onPlay} onPause={onPause} onStop={onStop} />
                 </li>
                 <br />
             </div>

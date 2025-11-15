@@ -46,9 +46,18 @@ export default function StrudelDemo() {
     //}
 
     // 'Play' button
-    const handlePlay = () => {
+    const handlePlay = async () => {
         // Error handling for when app 'crashes' after hot reload
         if (!globalEditor) return;
+
+        // Incorporate the pause button
+        const ac = getAudioContext();
+        if (state === "pause") {
+            // resume audio without rebuilding/starting over
+            await ac.resume();
+            setState("play");
+            return;
+        }
 
        //const mBuild = masterBuild(); // uses current state
         // Apply the CPM change
@@ -75,12 +84,25 @@ export default function StrudelDemo() {
         //console.log("Has tag left?", outputText.includes("{$CPM}")); // should be: false
         globalEditor.setCode(outputText);
         globalEditor.evaluate();
+        setState("play"); /*******************************check this*/
     }
 
     // 'Pause' Button
     const handlePause = async () => {
+        if (!globalEditor) return;
 
-    } 
+        const ac = getAudioContext();
+        if (state === "play") {
+            // pause the audio graph
+            await ac.suspend();
+            setState("pause");
+        }
+        else if (state === "pause") {
+            // resume audio without rebuilding/starting over
+            await ac.resume();
+            setState("play")
+        }
+    }; 
 
     // 'Stop' button
     const handleStop = () => {
@@ -273,6 +295,7 @@ useEffect(() => {
                                 reverb={reverb}
                                 onReverbChange={handleReverb}
                                 onPlay={handlePlay}
+                                onPause={handlePause} 
                                 onStop={handleStop}
                                 instrumentMute={instrumentMute}
                                 onInstrumentMuteChange={handleInstrumentMute}
