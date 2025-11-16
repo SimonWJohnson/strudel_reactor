@@ -1,6 +1,17 @@
 
 import { useRef } from "react";
-function SaveOrLoadSettings() {
+function SaveOrLoadSettings({ onSaveExport, onLoadImport }) {
+    const fileRef = useRef(null);
+
+    const triggerImport = () => fileRef.current?.click();
+
+    const handleFile = (e) => {
+        const file = e.target.files?.[0];
+        if (file) onLoadImport(file);
+        // Allow re-import of the same file
+        e.target.value = "";
+    }
+
     return (
         <>
             <div className="d-flex flex-column align-items-center text-center gap-3">
@@ -11,8 +22,9 @@ function SaveOrLoadSettings() {
                     </h5>
                 </div>
                 <div className="btn-group" role="group" aria-label="Save/Load">
-                    <button id="save_settings" className="btn btn-outline-success">Save</button>
-                    <button id="load_settings" className="btn btn-outline-danger">Load</button>
+                    <button id="save_settings" className="btn btn-outline-success" onClick={onSaveExport}>Save</button>
+                    <button id="load_settings" className="btn btn-outline-danger" onClick={triggerImport}>Load</button>
+                    <input type="file" accept="application/json" className="d-none" ref={fileRef} onChange={handleFile} />
                 </div>
             </div>
         </>
