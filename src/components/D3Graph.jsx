@@ -3,7 +3,7 @@
 // Owns the lifecycle
 
 import { useEffect, useRef } from "react";
-import { initD3Graph, destroyD3Graph } from "../Controllers/D3GraphModel";
+import { initD3Graph, destroyD3Graph } from "../Controllers/D3GraphController.jsx";
 
 function D3Graph() {
     // create a persistent reference to the <svg> DOM element that D3 will draw into
