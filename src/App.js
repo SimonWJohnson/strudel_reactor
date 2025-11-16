@@ -32,22 +32,6 @@ export default function StrudelDemo() {
     // Handlers
     const hasRun = useRef(false);
 
-    // 'Master' Build Component for modularity
-    //const masterBuild = ({volume: volume, reverb: reverb, cpm: cpm } = {}) => {
-    //    let outputText = songText;
-    //    outputText = applyCPM({ inputText: outputText, cpm: cpm }) // CPM first
-    //    outputText = Volume({ inputText: outputText, volume: volume })
-    //    outputText = Reverb({ inputText: outputText, reverb: reverb })
-
-    //    // token sanitisation
-    //    outputText = outputText
-    //        .replace(/\{\s*\$CPM\s*\}/g, String((Number(cpm) || 120) / 60 / 4))
-    //        .replace(/\{\s*\$VOLUME\s*\}/g, String(Number(volume) || 1))
-    //        .replace(/\{\s*\$REVERB\s*\}/g, String(Number(reverb) || 0));
-
-    //    return outputText;
-    //}
-
     // 'Play' button
     const handlePlay = async () => {
         // Error handling for when app 'crashes' after hot reload
@@ -91,9 +75,9 @@ export default function StrudelDemo() {
         //console.log("Has tag left?", outputText.includes("{$CPM}")); // should be: false
         //globalEditor.setCode(outputText);
         //globalEditor.evaluate();
-        globalEditor.setCode(outputText);
-        globalEditor.evaluate();
-        setState("play"); /*******************************check this*/
+        //globalEditor.setCode(outputText);
+        //globalEditor.evaluate();
+        setState("play");
     }
 
     // 'Pause' Button
