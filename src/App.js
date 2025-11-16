@@ -153,7 +153,7 @@ export default function StrudelDemo() {
     const handleSaveExport = () => {
         const settings = {
             _meta: { version: "1.0.0", savedAt: new Date().toISOString() },
-            controls: { volume, reverb, instrumentMute },
+            controls: { volume, reverb, instrumentMute }, // ** Add CPM here later **
         };
 
         const blob = new Blob([JSON.stringify(settings, null, 2)], { type: "application/json" });
@@ -171,8 +171,22 @@ export default function StrudelDemo() {
 
     // Load Settings (Load & Import in a single action)
     const handleLoadImport = async (file) => {
+        try {
+            const text = await file.text();
+            const json = JSON.parse(text);
 
-    }
+            // validation
+            if (!json?.controls) {
+                console.warn("Invalid settings file (missing controls)");
+                return;
+            }
+            applySettings(json);
+            console.log("Imported settings");
+        }
+        catch (e) {
+            console.error("Failed to import settings: ", e);
+        }
+    };
 
 
     // Instrument Mute
@@ -187,6 +201,26 @@ export default function StrudelDemo() {
         globalEditor.setCode(outputText);
         globalEditor.evaluate(); // stacktrace
     }
+
+    // Apply Settings helper function for Load/Import 
+    const applySettings = (settingsJson) => {
+        const { controls } = settingsJson || {};
+        if (!controls) return;
+
+        const { volume: vol, reverb: rev, instrumentMute: mute } = controls; // add CPM **
+
+        // update the UI state
+        setVolume(vol);
+        setReverb(rev);
+        setInstrumentMute(mute);
+        // add CPM **
+
+
+
+        // Update Strudel code 
+        if (!globalEditor) return;
+
+    };
 
     // States
     const [songText, setSongText] = useState(stranger_tune);
