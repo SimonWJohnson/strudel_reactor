@@ -145,7 +145,7 @@ export default function StrudelDemo() {
 
         setReverb(newReverb);
         if (!globalEditor) return;
-        const masterBuild = MasterBuild({ songText, volume, reverb: newReverb, InstrumentMute }); // add CPM **
+        const masterBuild = MasterBuild({ songText, volume, reverb: newReverb, instrumentMute }); // add CPM **
         globalEditor.setCode(masterBuild);
         globalEditor.evaluate();
         // Rebuild both tags so they stay in sync
@@ -155,7 +155,7 @@ export default function StrudelDemo() {
 
         //globalEditor.setCode(outputText);
        //globalEditor.setCode(mBuild);
-        globalEditor.evaluate();
+        //globalEditor.evaluate();
     }
 
     // Instrument Mute
