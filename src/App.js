@@ -100,6 +100,7 @@ export default function StrudelDemo() {
     // 'Stop' button
     const handleStop = () => {
         globalEditor.stop()
+        setState("stop");
     }
     // setCpm
     const handleCPM = (newCpm) => {
@@ -133,7 +134,7 @@ export default function StrudelDemo() {
         if (!globalEditor) return;
         const masterBuild = MasterBuild({ songText, volume: newVolume, reverb, instrumentMute }); // add CPM**
         globalEditor.setCode(masterBuild);
-        globalEditor.evaluate();
+        if (state === "play") globalEditor.evaluate();
         //const mBuild = masterBuild({ volume: newVolume });
         // Rebuild both tags so they stay in sync
         //let outputText = Volume({ inputText: songText, volume: newVolume });
@@ -161,7 +162,7 @@ export default function StrudelDemo() {
         if (!globalEditor) return;
         const masterBuild = MasterBuild({ songText, volume, reverb: newReverb, instrumentMute }); // add CPM **
         globalEditor.setCode(masterBuild);
-        globalEditor.evaluate();
+        if (state === "play") globalEditor.evaluate();
         // Rebuild both tags so they stay in sync
         //let outputText = Volume({ inputText: songText, volume});
         //outputText = Reverb({ inputText: outputText, reverb: newReverb });
@@ -179,7 +180,7 @@ export default function StrudelDemo() {
 
         const masterBuild = MasterBuild({ songText, volume, reverb, instrumentMute: newMap }); // add CPM **
         globalEditor.setCode(masterBuild);
-        globalEditor.evaluate();
+        if (state === "play") globalEditor.evaluate();
 
         //let outputText = Volume({ inputText: songText, volume });
         //outputText = Reverb({ inputText: outputText, reverb: reverb });
