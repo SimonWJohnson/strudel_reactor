@@ -13,10 +13,13 @@ import DJ_Controls from './components/DJ_Controls';
 import PlayButtons from './components/PlayButtons';
 import ProcButtons from './components/ProcButtons';
 import PreprocessTextArea from './components/PreprocessTextArea';
+import SaveOrLoadSettings from './components/SaveOrLoadSettings';
 import Volume from './Utils/VolumeLogic'; 
 import Reverb from './Utils/ReverbLogic';
 import applyCPM from './Utils/CPMLogic';
 import InstrumentMute from './Utils/InstrumentLogic';
+import MasterBuild from './Utils/MasterBuild';
+
 
 let globalEditor = null;
 
@@ -50,6 +53,10 @@ export default function StrudelDemo() {
         // Error handling for when app 'crashes' after hot reload
         if (!globalEditor) return;
 
+        const masterBuild = MasterBuild({ songText, volume, reverb, instrumentMute });
+        globalEditor.setCode(masterBuild);
+        globalEditor.evaluate();
+
         // Incorporate the pause button
         const ac = getAudioContext();
         if (state === "pause") {
@@ -66,11 +73,11 @@ export default function StrudelDemo() {
         //const cps = (Number(cpm) || 120) / 60 / 4; // 4 bars/cycle
         //songText = outputText.replaceAll("{$CPM}", String(cps));
         // Apply the volume tags first
-        let outputText = Volume({ inputText: songText, volume: volume });
+        //let outputText = Volume({ inputText: songText, volume: volume });
         // Then apply the reverb tags
-        outputText = Reverb({ inputText: outputText, reverb });
+        //outputText = Reverb({ inputText: outputText, reverb });
         // Then apply the instrument mute
-        outputText = InstrumentMute({ inputText: outputText, muteMap: instrumentMute });
+        //outputText = InstrumentMute({ inputText: outputText, muteMap: instrumentMute });
 
         //// Safety: if a token slipped through (e.g. stray spaces), replace again
         //if (/\{\s*\$CPM\s*\}/.test(outputText)) {
@@ -82,6 +89,8 @@ export default function StrudelDemo() {
         //console.log("FINAL CODE >>>\n", outputText.slice(0, 200));
         //console.log("FIRST LINE:", outputText.split("\n")[0]);       // should be: setcps(0.5)
         //console.log("Has tag left?", outputText.includes("{$CPM}")); // should be: false
+        //globalEditor.setCode(outputText);
+        //globalEditor.evaluate();
         globalEditor.setCode(outputText);
         globalEditor.evaluate();
         setState("play"); /*******************************check this*/
@@ -136,18 +145,21 @@ export default function StrudelDemo() {
     const handleVolume = (newVolume) => {
         setVolume(newVolume);
         // Debugging
-        //console.log("handleVolume called with: ", newVolume);
+        console.log("handleVolume called with: ", newVolume);
         if (!globalEditor) return;
+        const masterBuild = MasterBuild({ songText, volume: newVolume, reverb, instrumentMute }); // add CPM**
+        globalEditor.setCode(masterBuild);
+        globalEditor.evaluate();
         //const mBuild = masterBuild({ volume: newVolume });
         // Rebuild both tags so they stay in sync
-        let outputText = Volume({ inputText: songText, volume: newVolume });
-        outputText = Reverb({ inputText: outputText, reverb });
-        outputText = InstrumentMute({ inputText: outputText, muteMap: instrumentMute });
+        //let outputText = Volume({ inputText: songText, volume: newVolume });
+        //outputText = Reverb({ inputText: outputText, reverb });
+        //outputText = InstrumentMute({ inputText: outputText, muteMap: instrumentMute });
 
-        globalEditor.setCode(outputText);
+        //globalEditor.setCode(outputText);
         //globalEditor.setCode(mBuild);
-        globalEditor.evaluate();
-    }
+        //globalEditor.evaluate();
+    };
     // Reverb
     /*
      * Logic Flow
@@ -163,34 +175,96 @@ export default function StrudelDemo() {
 
         setReverb(newReverb);
         if (!globalEditor) return;
-        //const mBuild = masterBuild({reverb: newReverb});
-
-        // Rebuild both tags so they stay in sync
-        let outputText = Volume({ inputText: songText, volume});
-        outputText = Reverb({ inputText: outputText, reverb: newReverb });
-        outputText = InstrumentMute({ inputText: outputText, muteMap: instrumentMute });
-
-        globalEditor.setCode(outputText);
-       //globalEditor.setCode(mBuild);
+        const masterBuild = MasterBuild({ songText, volume, reverb: newReverb, instrumentMute }); // add CPM **
+        globalEditor.setCode(masterBuild);
         globalEditor.evaluate();
-    }
-    
-    // Save Settings
+        // Rebuild both tags so they stay in sync
+        //let outputText = Volume({ inputText: songText, volume});
+        //outputText = Reverb({ inputText: outputText, reverb: newReverb });
+        //outputText = InstrumentMute({ inputText: outputText, muteMap: instrumentMute });
 
-    // Load Settings
+        //globalEditor.setCode(outputText);
+       //globalEditor.setCode(mBuild);
+        //globalEditor.evaluate();
+    }
 
     // Instrument Mute
     const handleInstrumentMute = (newMap) => {
         setInstrumentMute(newMap);
         if (!globalEditor) return;
 
-        let outputText = Volume({ inputText: songText, volume });
-        outputText = Reverb({ inputText: outputText, reverb: reverb });
-        outputText = InstrumentMute({ inputText: outputText, muteMap: newMap });
+        const masterBuild = MasterBuild({ songText, volume, reverb, instrumentMute: newMap }); // add CPM **
+        globalEditor.setCode(masterBuild);
+        globalEditor.evaluate();
 
-        globalEditor.setCode(outputText);
-        globalEditor.evaluate(); // stacktrace
+        //let outputText = Volume({ inputText: songText, volume });
+        //outputText = Reverb({ inputText: outputText, reverb: reverb });
+        //outputText = InstrumentMute({ inputText: outputText, muteMap: newMap });
+
+        //globalEditor.setCode(outputText);
+        //globalEditor.evaluate(); // stacktrace
     }
+
+    // Save Settings - Save & Export in a single action, download json
+    const handleSaveExport = () => {
+        const settings = {
+            _meta: { version: "1.0.0", savedAt: new Date().toISOString() },
+            controls: { volume, reverb, instrumentMute }, // ** Add CPM here later **
+        };
+
+        const blob = new Blob([JSON.stringify(settings, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `strudel-settings-${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        console.log("Exported settings");
+    };
+
+
+
+    // Apply Settings helper function for Load/Import 
+    const applySettings = (settingsJson) => {
+        const { controls } = settingsJson || {};
+        if (!controls) return;
+
+        const { volume: vol, reverb: rev, instrumentMute: mute } = controls; // add CPM **
+
+        // update the UI state
+        setVolume(vol);
+        setReverb(rev);
+        setInstrumentMute(mute);
+        // add CPM **
+
+        // Update Strudel code 
+        if (!globalEditor) return;
+        const masterBuild = MasterBuild({ songText, volume: vol, reverb: rev, instrumentMute: mute }); // add CPM **
+        globalEditor.setCode(masterBuild);
+        if (state === "play") globalEditor.evaluate();
+    };
+
+    // Load Settings (Load & Import in a single action)
+    const handleLoadImport = async (file) => {
+        try {
+            const text = await file.text();
+            const json = JSON.parse(text);
+
+            // validation
+            if (!json?.controls) {
+                console.warn("Invalid settings file (missing controls)");
+                return;
+            }
+            applySettings(json);
+            console.log("Imported settings");
+        }
+        catch (e) {
+            console.error("Failed to import settings: ", e);
+        }
+    };
+
 
     // States
     const [songText, setSongText] = useState(stranger_tune);
@@ -299,6 +373,8 @@ useEffect(() => {
                                 onStop={handleStop}
                                 instrumentMute={instrumentMute}
                                 onInstrumentMuteChange={handleInstrumentMute}
+                                onSaveExport={handleSaveExport}
+                                onLoadImport={handleLoadImport}
                                 //cpm={cpm}                                //onCpmChange={setCpm}                              /*onCpmChange={(val) => setCpm(val)} // pass the setter*/
                             />
                         </div>
