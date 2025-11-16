@@ -37,7 +37,7 @@ export default function StrudelDemo() {
         // Error handling for when app 'crashes' after hot reload
         if (!globalEditor) return;
 
-        const masterBuild = MasterBuild({ songText, volume, reverb, instrumentMute });
+        const masterBuild = MasterBuild({ songText, volume, reverb, instrumentMute, cpm }); // added cpm
         globalEditor.setCode(masterBuild);
         globalEditor.evaluate();
 
@@ -105,13 +105,14 @@ export default function StrudelDemo() {
     // setCpm
     const handleCPM = (newCpm) => {
         // Apply the CPM tag
-        //setCpm(newCpm);
+        setCpm(newCpm);
         // Error handling for when app 'crashes' after hot reload
-        //if (!globalEditor) return;
-        //const mBuild = masterBuild({ cpm: newCpm })
+        if (!globalEditor) return;
+        const masterBuild = MasterBuild({ songText, volume, reverb, instrumentMute, cpm: newCpm });
         //const outputText = applyCPM({ inputText: songText, cpm });
         //const outputText = applyCPM({ inputText: songText, cpm });
-        //globalEditor.setCode(outputText);
+        globalEditor.setCode(masterBuild);
+        if (state === "play") globalEditor.evaluate();
         //console.log("first line:", mBuild.split("\n")[0]);            // should be setcps(...)
         //console.log("has {$CPM} left?", mBuild.includes("{$CPM}"));   // should be false
         //console.log("contains 'undefined'?", mBuild.includes("undefined"));
@@ -132,7 +133,7 @@ export default function StrudelDemo() {
         // Debugging
         console.log("handleVolume called with: ", newVolume);
         if (!globalEditor) return;
-        const masterBuild = MasterBuild({ songText, volume: newVolume, reverb, instrumentMute }); // add CPM**
+        const masterBuild = MasterBuild({ songText, volume: newVolume, reverb, instrumentMute, cpm }); // add CPM**
         globalEditor.setCode(masterBuild);
         if (state === "play") globalEditor.evaluate();
         //const mBuild = masterBuild({ volume: newVolume });
@@ -160,7 +161,7 @@ export default function StrudelDemo() {
 
         setReverb(newReverb);
         if (!globalEditor) return;
-        const masterBuild = MasterBuild({ songText, volume, reverb: newReverb, instrumentMute }); // add CPM **
+        const masterBuild = MasterBuild({ songText, volume, reverb: newReverb, instrumentMute, cpm }); // add CPM **
         globalEditor.setCode(masterBuild);
         if (state === "play") globalEditor.evaluate();
         // Rebuild both tags so they stay in sync
@@ -178,7 +179,7 @@ export default function StrudelDemo() {
         setInstrumentMute(newMap);
         if (!globalEditor) return;
 
-        const masterBuild = MasterBuild({ songText, volume, reverb, instrumentMute: newMap }); // add CPM **
+        const masterBuild = MasterBuild({ songText, volume, reverb, instrumentMute: newMap, cpm }); // add CPM **
         globalEditor.setCode(masterBuild);
         if (state === "play") globalEditor.evaluate();
 
@@ -194,7 +195,7 @@ export default function StrudelDemo() {
     const handleSaveExport = () => {
         const settings = {
             _meta: { version: "1.0.0", savedAt: new Date().toISOString() },
-            controls: { volume, reverb, instrumentMute }, // ** Add CPM here later **
+            controls: { volume, reverb, instrumentMute, cpm }, // ** Add CPM here later **
         };
 
         const blob = new Blob([JSON.stringify(settings, null, 2)], { type: "application/json" });
@@ -216,17 +217,18 @@ export default function StrudelDemo() {
         const { controls } = settingsJson || {};
         if (!controls) return;
 
-        const { volume: vol, reverb: rev, instrumentMute: mute } = controls; // add CPM **
+        const { volume: vol, reverb: rev, instrumentMute: mute, cpm: cpm } = controls; // add CPM **
 
         // update the UI state
         setVolume(vol);
         setReverb(rev);
         setInstrumentMute(mute);
+        setCpm(cpm);
         // add CPM **
 
         // Update Strudel code 
         if (!globalEditor) return;
-        const masterBuild = MasterBuild({ songText, volume: vol, reverb: rev, instrumentMute: mute }); // add CPM **
+        const masterBuild = MasterBuild({ songText, volume: vol, reverb: rev, instrumentMute: mute, cpm: cpm }); // add CPM **
         globalEditor.setCode(masterBuild);
         if (state === "play") globalEditor.evaluate();
     };
@@ -260,7 +262,7 @@ export default function StrudelDemo() {
     // Reverb
     const [reverb, setReverb] = useState(0.4);
     // CPM
-    //const [cpm, setCpm] = useState(120);
+    const [cpm, setCpm] = useState(120);
 
     // Instrument Selection (Mute)
     const [instrumentMute, setInstrumentMute] = useState({
@@ -360,7 +362,7 @@ useEffect(() => {
                                 onInstrumentMuteChange={handleInstrumentMute}
                                 onSaveExport={handleSaveExport}
                                 onLoadImport={handleLoadImport}
-                                //cpm={cpm}                                //onCpmChange={setCpm}                              /*onCpmChange={(val) => setCpm(val)} // pass the setter*/
+                                cpm={cpm}                                onCpmChange={handleCPM}                              /*onCpmChange={(val) => setCpm(val)} // pass the setter*/
                             />
                         </div>
                     </div>

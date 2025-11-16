@@ -23,7 +23,7 @@ function DJ_Controls({ volume, onVolumeChange,
                 </li>
                 {/* Set CPM */ }
                 <li className="list-group-item dj-list-item" aria-current="true">
-                    <SetCPM /*cpm={cpm} onCpmChange={onCpmChange}*/ />
+                    <SetCPM cpm={cpm} onCpmChange={onCpmChange} />
                 </li>
                 <br />
                 {/* Volume */}
