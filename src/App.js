@@ -149,10 +149,24 @@ export default function StrudelDemo() {
         globalEditor.evaluate();
     }
     
-    // Save Settings (Save & Export in a single action)
+    // Save Settings - Save & Export in a single action, download json
     const handleSaveExport = () => {
+        const settings = {
+            _meta: { version: "1.0.0", savedAt: new Date().toISOString() },
+            controls: { volume, reverb, instrumentMute },
+        };
 
-    }
+        const blob = new Blob([JSON.stringify(settings, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `strudel-settings-${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        console.log("Exported settings");
+    };
 
 
     // Load Settings (Load & Import in a single action)
@@ -281,7 +295,7 @@ useEffect(() => {
                                 instrumentMute={instrumentMute}
                                 onInstrumentMuteChange={handleInstrumentMute}
                                 onSaveExport={handleSaveExport}
-                                onLoadExport={handleLoadImport}
+                                onLoadImport={handleLoadImport}
                                 //cpm={cpm}                                //onCpmChange={setCpm}                              /*onCpmChange={(val) => setCpm(val)} // pass the setter*/
                             />
                         </div>
