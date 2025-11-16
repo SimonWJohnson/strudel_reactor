@@ -12,7 +12,8 @@ function DJ_Controls({ volume, onVolumeChange,
     reverb, onReverbChange,
     onPlay, onStop,
     cpm, onCpmChange,
-    instrumentMute, onInstrumentMuteChange }) {
+    instrumentMute, onInstrumentMuteChange,
+    onSaveExport, onLoadImport }) {
     return (
         <>
             <div className="dj-panel list-group">
@@ -42,7 +43,7 @@ function DJ_Controls({ volume, onVolumeChange,
                 <br />
                 {/* Save / Load */}
                 <li className="list-group-item dj-list-item" aria-current="true">
-                    <SaveOrLoadSettings />
+                    <SaveOrLoadSettings onSaveExport={onSaveExport} onLoadImport={onLoadImport} />
                 </li>
                 <br />
                 {/* Play / Pause / Stop */}
