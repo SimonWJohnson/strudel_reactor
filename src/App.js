@@ -13,10 +13,12 @@ import DJ_Controls from './components/DJ_Controls';
 import PlayButtons from './components/PlayButtons';
 import ProcButtons from './components/ProcButtons';
 import PreprocessTextArea from './components/PreprocessTextArea';
+import SaveOrLoadSettings from './components/SaveOrLoadSettings';
 import Volume from './Utils/VolumeLogic'; 
 import Reverb from './Utils/ReverbLogic';
 import applyCPM from './Utils/CPMLogic';
 import InstrumentMute from './Utils/InstrumentLogic';
+
 
 let globalEditor = null;
 
@@ -147,9 +149,17 @@ export default function StrudelDemo() {
         globalEditor.evaluate();
     }
     
-    // Save Settings
+    // Save Settings (Save & Export in a single action)
+    const handleSaveExport = () => {
 
-    // Load Settings
+    }
+
+
+    // Load Settings (Load & Import in a single action)
+    const handleLoadImport = async (file) => {
+
+    }
+
 
     // Instrument Mute
     const handleInstrumentMute = (newMap) => {
@@ -270,6 +280,8 @@ useEffect(() => {
                                 onStop={handleStop}
                                 instrumentMute={instrumentMute}
                                 onInstrumentMuteChange={handleInstrumentMute}
+                                onSaveExport={handleSaveExport}
+                                onLoadExport={handleLoadImport}
                                 //cpm={cpm}                                //onCpmChange={setCpm}                              /*onCpmChange={(val) => setCpm(val)} // pass the setter*/
                             />
                         </div>
