@@ -54,13 +54,11 @@ function initScaffold() {
 
     // path to display th line geometry
     path = g.append("path")
-        //.attr("class", "line")
-        //.attr("fill", "none")
-        //.attr("stroke-width", 1.5);
-        // *********************
         .attr("class", "line")
         .attr("fill", "none")
-        .attr("stroke", "#222")              // ensure visible
+        //.attr("stroke", "#222")              // ensure visible
+        .attr("stroke", "url(#neonGradient)")  // ensure super visible!
+
         .attr("stroke-linejoin", "round")
         .attr("stroke-linecap", "round")
         .attr("stroke-width", 1.5);
@@ -68,18 +66,52 @@ function initScaffold() {
 
 // Normalise different data payload shapes to a single numeric value
 function accessor(d) {
+    // numbers are sent straight through
     if (typeof d === "number") return d;
+
+    // String values need to be parsed via json to find numeric tokens
+    if (typeof d === "string") {
+        const n = parseFloat(d);
+        if (Number.isFinite(n)) return n;
+
+        // try parsing via json
+        try {
+            const obj = JSON.parse(d);
+            if (obj && typeof obj === "object") {
+                if ("value" in obj) return +obj.value;
+                if ("amp" in obj) return +obj.amp;
+                if ("vel" in obj) return +obj.vel;
+                for (const k in obj) {
+                    const v = +obj[k];
+                    if (Number.isFinite(v)) return v;
+                }
+            }
+        }
+        catch {
+            // if not JSON, data is simply ignored
+        }
+
+        // Fallback - grab the first numeric token in the string
+        const m = d.match(/[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?/);
+        if (m) {
+            const f = parseFloat(m[0]);
+            if (Number.isFinite(f)) return f;
+        }
+
+        return NaN;
+    }
+
+    // Objects - value/amp.vel or any numeric field
     if (d && typeof d === "object") {
         if ("value" in d) return +d.value;
         if ("amp" in d) return +d.amp;
         if ("vel" in d) return +d.vel;
-    }
-        // *****************
-        // fallback: first numeric field
         for (const k in d) {
             const v = +d[k];
             if (Number.isFinite(v)) return v;
+        }
     }
+
     return NaN;
 }
 
@@ -131,9 +163,6 @@ export function initD3Graph(el) {
     if (!svgEl) return;
 
     initScaffold();
-    // initial render in case data already exists
-    //draw();
-    //************
     console.debug("[D3] init", svgEl);
     draw();
     
