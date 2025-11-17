@@ -5,10 +5,10 @@
 import * as d3 from "d3";
 import { pushData, getData } from "../Utils/D3GraphModel";
 
-let svgEl = null;
-let g = null;
+let svgEl = null; // svg DOM element data is drawn into
+let g = null;   // the root 'g' inside the svg
 let x = null, y = null; // D3 scales
-let path = null;
+let path = null; // path element that renders the visualisation line
 let resizeHandler = null; // window resize listener
 let d3DataHandler = null; // d3Data event listener
 
@@ -52,16 +52,51 @@ function initScaffold() {
     g.append("g").attr("class", "grid-x").attr("transform", `translate(0,${h})`);
     g.append("g").attr("class", "grid-y");
 
-    // path to display th line geometry
+    // path to display the line geometry, i.e. the line drawn on the graph
+    /*
+    * contains the css styling for the path
+    */
     path = g.append("path")
         .attr("class", "line")
         .attr("fill", "none")
-        //.attr("stroke", "#222")              // ensure visible
         .attr("stroke", "url(#neonGradient)")  // ensure super visible!
-
         .attr("stroke-linejoin", "round")
         .attr("stroke-linecap", "round")
-        .attr("stroke-width", 1.5);
+        .attr("stroke-width", 1.5) // possibly change this 
+        .attr("filter", "url(#glow)");
+
+    // define the gradient and glow filter
+    const defs = svg.append("defs");
+
+    const gradient = defs.append("linearGradient")
+        .attr("id", "neonGradient")
+        .attr("x1", "0%") // start point (left)
+        .attr("x2", "100%") // end point (right)
+        .attr("y1", "0%")
+        .attr("y2", "0%");
+
+    // Define the  colour transitions along the path (gradient stops)
+    gradient.append("stop")
+        .attr("offset", "0%") // start of the gradient line
+        .attr("stop-color", "#ff00ff"); // bright pink
+
+    gradient.append("stop")
+        .attr("offset", "100%") // end of the gradient line
+        .attr("stop-color", "#ff66ff"); // softer edge
+
+    // create the neon 'halo' around the line using a Guassian blur
+    const glow = defs.append("filter")
+        .attr("id", "glow");
+
+    // Blur pass to create a soft light spread
+    glow.append("feGaussianBlur")
+        .attr("stdDeviation", "3") // blur intensity 
+        .attr("result", "colouredBlur"); // colouredBlur output to be merged below
+
+    const feMerge = glow.append("feMerge"); // feMerge combines multiple visual layers into 1 final rendered image
+    feMerge.append("feMergeNode").attr("in", "colouredBlur"); // first visual layer - blur
+    feMerge.append("feMergeNode").attr("in", "SourceGraphic"); // second visual layer - sharp line
+
 }
 
 // Normalise different data payload shapes to a single numeric value
@@ -150,7 +185,7 @@ function draw() {
     g.select(".y-axis").call(d3.axisLeft(y).ticks(4));
 
     // gridlines
-    // tickSize dras lines across the plot
+    // tickSize draws lines across the plot
     // tickFormat("") hides the labels
     g.select(".grid-x").call(d3.axisBottom(x).ticks(10).tickSize(-h).tickFormat(""));
     g.select(".grid-y").call(d3.axisLeft(y).ticks(4).tickSize(-w).tickFormat(""));
