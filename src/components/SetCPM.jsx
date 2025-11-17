@@ -10,6 +10,11 @@ function SetCPM({ cpm, onCpmChange }) {
 
     return (
         <>
+            <div className="mb-2 text-center">
+                <h5 className="m-0 dj-title" style={{ fontWeight: "600", letterSpacing: "0.5px" }}>
+                    Set CPM
+                </h5>
+            </div>
             <div className="input-group mb-3">
                 <span className="input-group-text" id="cpm_label">Set CPM</span>
                 {/*<input type="text"*/}
