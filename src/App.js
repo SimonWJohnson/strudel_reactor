@@ -19,6 +19,7 @@ import Reverb from './Utils/ReverbLogic';
 import applyCPM from './Utils/CPMLogic';
 import InstrumentMute from './Utils/InstrumentLogic';
 import MasterBuild from './Utils/MasterBuild';
+import D3Graph from './components/D3Graph'
 
 
 let globalEditor = null;
@@ -331,6 +332,12 @@ useEffect(() => {
             <main>
                 <div className="container-fluid">
                     {/* ROW 1: Left = Preprocess + REPL, Right = DJ Controls */}
+                    { /* D3 Graph display */}
+                    <div className="row mt-3">
+                        <div className="col-12">
+                            <D3Graph />
+                        </div>
+                    </div>
                     <div className="row">
                         {/* LEFT COLUMN */}
                         <div className="col-md-8 d-flex flex-column">
@@ -341,7 +348,6 @@ useEffect(() => {
                                     onChange={(e) => setSongText(e.target.value)}
                                 />
                             </div>
-
                             {/* REPL */}
                             <div className="mt-3" style={{ maxHeight: "50vh", overflowY: "auto" }}>
                                 <div id="editor" />
@@ -366,7 +372,6 @@ useEffect(() => {
                             />
                         </div>
                     </div>
-
                     {/* ROW 2: Piano roll */}
                     <div className="row mt-3">
                         <div className="col-12">
