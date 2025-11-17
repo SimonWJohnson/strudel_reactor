@@ -22,8 +22,12 @@ function SaveOrLoadSettings({ onSaveExport, onLoadImport }) {
                     </h5>
                 </div>
                 <div className="btn-group" role="group" aria-label="Save/Load">
-                    <button id="save_settings" className="btn btn-outline-success" onClick={onSaveExport}>Save</button>
-                    <button id="load_settings" className="btn btn-outline-danger" onClick={triggerImport}>Load</button>
+                    <button id="save_settings" className="btn btn-outline-success" onClick={onSaveExport}>
+                        <i class="bi bi-save2 me-1"></i>Save
+                    </button>
+                    <button id="load_settings" className="btn btn-outline-danger" onClick={triggerImport}>
+                        <i class="bi bi-upload me-1"></i>Load
+                    </button>
                     <input type="file" accept="application/json" className="d-none" ref={fileRef} onChange={handleFile} />
                 </div>
             </div>
