@@ -70,3 +70,26 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 ### Test commit to verify repos setup - Simon Johnson
+
+### Controls
+
+# DJ_Controls
+
+# SetCPM
+
+# Volume Slider
+
+# Reverb Slider
+
+# Instrument Mute
+
+# Save and Load Settings
+
+# Play Buttons
+
+### Code Refactoring
+
+
+### Link to Demonstration Video
+
+### AI Tools and Usage
