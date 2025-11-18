@@ -11,12 +11,15 @@ function SetCPM({ cpm, onCpmChange }) {
     return (
         <>
             <div className="mb-2 text-center">
-                <h5 className="m-0 dj-title" style={{ fontWeight: "600", letterSpacing: "0.5px" }}>
+                {/*<h5 className="m-0 dj-title" style={{ fontWeight: "600", letterSpacing: "0.5px" }}>*/}
+                <h5 className="dj-subtitle dj-subtitle-small">
                     Set CPM
                 </h5>
             </div>
-            <div className="input-group mb-3">
-                <span className="input-group-text" id="cpm_label">Set CPM</span>
+            {/*<div className="input-group mb-3">*/}
+            <div className="input-group mb-3 dj-cpm-group">
+                {/*<span className="input-group-text" id="cpm_label">Set CPM</span>*/}
+                <span className="input-group-text dj-cpm-label" id="cpm_label">CPM: </span>
                 {/*<input type="text"*/}
                 <input type="number" min="1" max="400" step="1"
                     className="form-control"
