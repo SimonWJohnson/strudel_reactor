@@ -19,7 +19,7 @@ function DJ_Controls({ volume, onVolumeChange,
             <div className="dj-panel list-group">
                 {/* Header */ }
                 <li className="list-group-item dj-list-item dj-header text-center">
-                <h1 className="h1 m-0 dj-title">DJ Controls</h1>
+                <h1 className="dj-title">DJ Controls</h1>
                 </li>
                 {/* Set CPM */ }
                 <li className="list-group-item dj-list-item" aria-current="true">
