@@ -126,7 +126,7 @@ use different images, or choose no image etc.
 github:algorave-dave/samples 
 
 ### Link to Demonstration Video
-
+https://youtu.be/_1yFWaB3CQQ
 
 ### AI Tools and Usage
 For the D3 grpah component, I used ChatGPT to better understand the structure and function of the graph, 
