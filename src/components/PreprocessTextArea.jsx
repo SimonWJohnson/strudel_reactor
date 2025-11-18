@@ -10,7 +10,6 @@ function PreprocessTextArea({ defaultValue, onChange }) {
               </label>
           </div>          
           <textarea
-              /*className="form-control"*/
               className="form-control dj-textarea"
               rows="15"
               defaultValue={defaultValue}

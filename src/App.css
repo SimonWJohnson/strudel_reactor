@@ -44,7 +44,7 @@ body {
 
 /* DJ Panel Container*/
 .dj-panel {
-    max-width: 420px;
+    /*max-width: 420px;*/
     margin: 1.5rem auto;
     border-radius: 1.5rem;
     padding: 0.5rem;
@@ -111,9 +111,13 @@ body {
     --ring: 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
     --pad: 18px;
     /* Backgrround layers - image and dark overlay for readability */
-    background: linear-gradient(to bottom, rgba(7, 10, 25, 0.65), rgba(7, 10, 25, 0.65)), 
-        var(--bg-url) center/cover no-repeat;
+    background-image: linear-gradient(to bottom, rgba(7, 10, 25, 0.65), rgba(7, 10, 25, 0.65)), 
+        var(--bg-url); /*center/cover no-repeat;*/
+    background-position: 0, 0, center, center;
+    background-repeat: no-repeat, no-repeat;
+    background-size: auto, cover;
     background-attachment: local, local;
+    background-blend-mode: normal, multiply;
     color: #ff00ff;
     font-weight:500;
     letter-spacing: .1px;
@@ -136,6 +140,26 @@ body {
 .dj-textarea:focus {
     box-shadow: 0 0 0 2px rgba(150, 200, 255, 0.35),
         0 0 30px rgba(150, 200, 255, 0.4);
+}
+
+
+/* Set CPM */
+#cpm_text-input {
+    background: rgba(80, 60, 180, 0.25);
+    color: #b8eaff;
+    text-align: center;
+    border: 1px solid rgba(120, 200, 255, 0.35);
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.08em;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0 0.55),
+        0 0 10px rgba(0, 255, 255, 0.08);
+}
+
+/* remove the number spinners from the input field */
+#cpm_text-input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 
@@ -186,7 +210,7 @@ body {
     color: #b8eaff;
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
     letter-spacing: 0.08em;
-    font-family: "Fira Code", monospace;
+    font-family: 'Orbitron', sans-serif;
 }
 
 /* Instrument mute checkbox styling */
@@ -247,3 +271,4 @@ body {
 #load_settings {
     background: linear-gradient(135deg, #ff0099, #ff4d4d);
 }
+

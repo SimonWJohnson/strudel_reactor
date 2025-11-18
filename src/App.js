@@ -342,7 +342,8 @@ useEffect(() => {
                         {/* LEFT COLUMN */}
                         <div className="col-md-8 d-flex flex-column">
                             {/* Preprocessing text area */}
-                            <div style={{ maxHeight: "50vh", overflowY: "auto" }}>
+                            <div /*style={{ maxHeight: "50vh", overflowY: "auto" }}*/
+                            className="preprocess-wrapper">
                                 <PreprocessTextArea
                                     defaultValue={songText}
                                     onChange={(e) => setSongText(e.target.value)}
