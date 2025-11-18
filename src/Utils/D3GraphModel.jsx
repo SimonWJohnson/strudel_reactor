@@ -1,5 +1,5 @@
 
-// The Model...double duh
+// The Model...
 // Owns the data
 
 // Max number of points to keep in memory; once MAX_POINTS is reached, older values are dropped

@@ -1,5 +1,5 @@
 
-// The Controller...duh
+// The Controller
 // Owns the logic
 
 import * as d3 from "d3";

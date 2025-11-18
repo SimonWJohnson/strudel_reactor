@@ -50,34 +50,6 @@ export default function StrudelDemo() {
             setState("play");
             return;
         }
-
-       //const mBuild = masterBuild(); // uses current state
-        // Apply the CPM change
-        //console.log("cpm state = ", cpm)
-        //let outputText = applyCPM({ inputText: songText, cpm })
-        //const cps = (Number(cpm) || 120) / 60 / 4; // 4 bars/cycle
-        //songText = outputText.replaceAll("{$CPM}", String(cps));
-        // Apply the volume tags first
-        //let outputText = Volume({ inputText: songText, volume: volume });
-        // Then apply the reverb tags
-        //outputText = Reverb({ inputText: outputText, reverb });
-        // Then apply the instrument mute
-        //outputText = InstrumentMute({ inputText: outputText, muteMap: instrumentMute });
-
-        //// Safety: if a token slipped through (e.g. stray spaces), replace again
-        //if (/\{\s*\$CPM\s*\}/.test(outputText)) {
-        //    const cps = (Number(cpm) || 120) / 60 / 4;
-        //    outputText = outputText.replace(/\{\s*\$CPM\s*\}/g, String(cps));
-        //}
-
-        // CPM Debugging
-        //console.log("FINAL CODE >>>\n", outputText.slice(0, 200));
-        //console.log("FIRST LINE:", outputText.split("\n")[0]);       // should be: setcps(0.5)
-        //console.log("Has tag left?", outputText.includes("{$CPM}")); // should be: false
-        //globalEditor.setCode(outputText);
-        //globalEditor.evaluate();
-        //globalEditor.setCode(outputText);
-        //globalEditor.evaluate();
         setState("play");
     }
 
@@ -110,16 +82,10 @@ export default function StrudelDemo() {
         // Error handling for when app 'crashes' after hot reload
         if (!globalEditor) return;
         const masterBuild = MasterBuild({ songText, volume, reverb, instrumentMute, cpm: newCpm });
-        //const outputText = applyCPM({ inputText: songText, cpm });
-        //const outputText = applyCPM({ inputText: songText, cpm });
         globalEditor.setCode(masterBuild);
         if (state === "play") globalEditor.evaluate();
-        //console.log("first line:", mBuild.split("\n")[0]);            // should be setcps(...)
-        //console.log("has {$CPM} left?", mBuild.includes("{$CPM}"));   // should be false
-        //console.log("contains 'undefined'?", mBuild.includes("undefined"));
-        //globalEditor.setCode(mBuild);
-        //globalEditor.evaluate();
     }
+
     // Volume
     /*
      * Logic Flow
@@ -137,16 +103,8 @@ export default function StrudelDemo() {
         const masterBuild = MasterBuild({ songText, volume: newVolume, reverb, instrumentMute, cpm }); // add CPM**
         globalEditor.setCode(masterBuild);
         if (state === "play") globalEditor.evaluate();
-        //const mBuild = masterBuild({ volume: newVolume });
-        // Rebuild both tags so they stay in sync
-        //let outputText = Volume({ inputText: songText, volume: newVolume });
-        //outputText = Reverb({ inputText: outputText, reverb });
-        //outputText = InstrumentMute({ inputText: outputText, muteMap: instrumentMute });
-
-        //globalEditor.setCode(outputText);
-        //globalEditor.setCode(mBuild);
-        //globalEditor.evaluate();
     };
+
     // Reverb
     /*
      * Logic Flow
@@ -165,49 +123,51 @@ export default function StrudelDemo() {
         const masterBuild = MasterBuild({ songText, volume, reverb: newReverb, instrumentMute, cpm }); // add CPM **
         globalEditor.setCode(masterBuild);
         if (state === "play") globalEditor.evaluate();
-        // Rebuild both tags so they stay in sync
-        //let outputText = Volume({ inputText: songText, volume});
-        //outputText = Reverb({ inputText: outputText, reverb: newReverb });
-        //outputText = InstrumentMute({ inputText: outputText, muteMap: instrumentMute });
-
-        //globalEditor.setCode(outputText);
-       //globalEditor.setCode(mBuild);
-        //globalEditor.evaluate();
     }
-
+    /**
+     * Logic flow
+     * Updates the React state by storing a mute value for each instrument
+     * Checks editor is initialised
+     * calls MasterBuild to rebuild the song based on values passed in
+     * the editors displayed code is updated
+     * updated song / code is evaluated
+     * 
+     * @param {any} newMap
+     * @returns
+     */
     // Instrument Mute
     const handleInstrumentMute = (newMap) => {
         setInstrumentMute(newMap);
         if (!globalEditor) return;
 
-        const masterBuild = MasterBuild({ songText, volume, reverb, instrumentMute: newMap, cpm }); // add CPM **
+        const masterBuild = MasterBuild({ songText, volume, reverb, instrumentMute: newMap, cpm }); 
         globalEditor.setCode(masterBuild);
         if (state === "play") globalEditor.evaluate();
-
-        //let outputText = Volume({ inputText: songText, volume });
-        //outputText = Reverb({ inputText: outputText, reverb: reverb });
-        //outputText = InstrumentMute({ inputText: outputText, muteMap: newMap });
-
-        //globalEditor.setCode(outputText);
-        //globalEditor.evaluate(); // stacktrace
     }
 
     // Save Settings - Save & Export in a single action, download json
     const handleSaveExport = () => {
+        // create a setting object
         const settings = {
             _meta: { version: "1.0.0", savedAt: new Date().toISOString() },
-            controls: { volume, reverb, instrumentMute, cpm }, // ** Add CPM here later **
+            controls: { volume, reverb, instrumentMute, cpm }, 
         };
 
+        // convert settings into a JSON file
         const blob = new Blob([JSON.stringify(settings, null, 2)], { type: "application/json" });
+        // create a temp url for the file
         const url = URL.createObjectURL(blob);
+        // create an <a> element to download the file
         const a = document.createElement("a");
         a.href = url;
         a.download = `strudel-settings-${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.json`;
+        // trigger the download
         document.body.appendChild(a);
         a.click();
         a.remove();
+        // clean the temp file url
         URL.revokeObjectURL(url);
+        //debugging
         console.log("Exported settings");
     };
 
@@ -218,18 +178,17 @@ export default function StrudelDemo() {
         const { controls } = settingsJson || {};
         if (!controls) return;
 
-        const { volume: vol, reverb: rev, instrumentMute: mute, cpm: cpm } = controls; // add CPM **
+        const { volume: vol, reverb: rev, instrumentMute: mute, cpm: cpm } = controls; 
 
         // update the UI state
         setVolume(vol);
         setReverb(rev);
         setInstrumentMute(mute);
         setCpm(cpm);
-        // add CPM **
 
         // Update Strudel code 
         if (!globalEditor) return;
-        const masterBuild = MasterBuild({ songText, volume: vol, reverb: rev, instrumentMute: mute, cpm: cpm }); // add CPM **
+        const masterBuild = MasterBuild({ songText, volume: vol, reverb: rev, instrumentMute: mute, cpm: cpm }); 
         globalEditor.setCode(masterBuild);
         if (state === "play") globalEditor.evaluate();
     };
@@ -342,7 +301,7 @@ useEffect(() => {
                         {/* LEFT COLUMN */}
                         <div className="col-md-8 d-flex flex-column">
                             {/* Preprocessing text area */}
-                            <div /*style={{ maxHeight: "50vh", overflowY: "auto" }}*/
+                            <div
                             className="preprocess-wrapper">
                                 <PreprocessTextArea
                                     defaultValue={songText}
@@ -369,7 +328,7 @@ useEffect(() => {
                                 onInstrumentMuteChange={handleInstrumentMute}
                                 onSaveExport={handleSaveExport}
                                 onLoadImport={handleLoadImport}
-                                cpm={cpm}                                onCpmChange={handleCPM}                              /*onCpmChange={(val) => setCpm(val)} // pass the setter*/
+                                cpm={cpm}                                onCpmChange={handleCPM}
                             />
                         </div>
                     </div>

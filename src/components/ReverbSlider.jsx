@@ -1,6 +1,8 @@
 function ReverbSlider({reverb, onReverbChange}) {
     // Debugging logic
+    // handler to pass new reverb value upon release of mouse button
     const handleMouseUp = (e) => {
+        // parse the slider position as a numeric value
         const value = parseFloat(e.target.value);
         console.log("ReverbSlider: ", value, "onReverbChange type: ", typeof onReverbChange);
         onReverbChange(value);
@@ -12,7 +14,6 @@ function ReverbSlider({reverb, onReverbChange}) {
                     Reverb
                 </h5>
             </div>
-            {/*<label htmlFor="reverb_range" className="form-label">Reverb</label>*/}
             <input type="range" className="form-range" min="0" max="1" step="0.01" defaultValue={reverb} onMouseUp={handleMouseUp} id="reverb_range" /> 
         </>
     );

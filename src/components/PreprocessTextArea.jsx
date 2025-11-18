@@ -15,7 +15,7 @@ function PreprocessTextArea({ defaultValue, onChange }) {
               defaultValue={defaultValue}
               onChange={onChange}
               id="proc"
-              style={{ "--bg-url": `url(${sunsetSynth})` }}
+              style={{ "--bg-url": `url(${sunsetSynth})` }} // set image backdrop
           >
           </textarea>
       </>

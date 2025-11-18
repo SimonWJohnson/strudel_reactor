@@ -1,6 +1,7 @@
 
 function VolumeSlider({ volume, onVolumeChange }) {
     // Debugging logic
+    // helper function to pass value of slider position as a number upon release of mouse button
     const handleMouseUp = (e) => {
         const value = parseFloat(e.target.value);
         console.log("VolumeSlider: ", value);
@@ -15,7 +16,6 @@ function VolumeSlider({ volume, onVolumeChange }) {
                     Volume
                 </h5>
             </div>
-            {/*<label htmlFor="volume_range" className="form-label">Volume</label>*/}
             <input type="range" className="form-range" min="0" max="2" step="0.01" onMouseUp={handleMouseUp} id="volume_range" />
         </>
     );
