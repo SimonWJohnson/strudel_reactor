@@ -53,6 +53,17 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
+/* Dim the Dj Panel background */
+.dj-panel {
+    background: rgba(20, 10, 40, 0.55);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.25), 0 0 40px rgba(0, 255, 255, 0.15), inset 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+
+
 /* Header */
 .dj-header {
     padding-top: 1rem;
@@ -78,13 +89,14 @@ body {
 }
 
 /* Preprocess Text area - glass container */
+/* This section overrides the form-control styling */
 .form-control.dj-textarea,
 #proc.form-control.dj-textarea {
     --radius: 14px;
     --ring: 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
     --pad: 18px;
     /* Backgrround layers - image and dark overlay for readability */
-    background: linear-gradient(to bottom, rgba(7, 10, 25, 0.80), rgba(7, 10, 25, 0.80)), 
+    background: linear-gradient(to bottom, rgba(7, 10, 25, 0.65), rgba(7, 10, 25, 0.65)), 
         var(--bg-url) center/cover no-repeat;
     background-attachment: local, local;
     color: #ff00ff;
@@ -102,7 +114,7 @@ body {
     padding: var(--pad);
     box-shadow: var(--ring);
     outline: none;
-    filter: drop-shadow(0 0 10px rgba(120, 180, 255, 018));
+    filter: drop-shadow(0 0 10px rgba(120, 180, 255, 0.18));
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -111,27 +123,6 @@ body {
         0 0 30px rgba(150, 200, 255, 0.4);
 }
 
-/* Animated glow pulse for dj-textarea */
-/*@keyframes magentaPulse {
-    0%, 100% {
-        text-shadow: 
-            0 0 1px rgba(0, 0, 0, 0.8), 
-            0 0 4px rgba(255, 0, 255, 0.4), 
-            0 0 12px rgba(255, 0, 255, 0.25), 
-            0 0 20px rgba(255, 0, 255, 0.15);
-    }
-    50% {
-        text-shadow: 
-            0 0 2px rgba(0, 0, 0, 0.9), 
-            0 0 8px #ff00ff, 
-            0 0 20px #ff00ff, 
-            0 0 35px rgba(255, 0, 255, 0.5);
-    }
-}
-
-.form-control.dj-textarea {
-    animation: magentaPulse 6s ease-in-out infinite alternate;
-}*/
 
 /* Sliders */
 .form-range {
@@ -175,12 +166,42 @@ body {
     box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
 }
 
-/* Dim the Dj Panel background */
-.dj-panel {
-    background: rgba(20, 10, 40, 0.55);
-    backdrop-filter: blur(10px) saturate(180%);
-    -webkit-backdrop-filter: blur(10px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 20px rgba(255, 0, 255, 0.25), 0 0 40px rgba(0, 255, 255, 0.15), inset 0 0 10px rgba(255, 255, 255, 0.05);
+/* Button Styling */
+.btn-group {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
 }
 
+/* Shared Base styles */
+#play, #pause, #stop, #save_settings, #load_settings {
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    transition: all 0.15s ease;
+}
+
+
+#play {
+    background: linear-gradient(135deg, #00ff80, #00e6ff);
+}
+
+#pause {
+    background: linear-gradient(135deg, #ffb347, #ff7e00);
+}
+
+#stop {
+    background: linear-gradient(135deg, #ff005d, #ff4d4d);
+}
+
+#save_settings {
+    background: linear-gradient(135deg, #00ffff, #7c00ff);
+}
+#load_settings {
+    background: linear-gradient(135deg, #ff0099, #ff4d4d);
+}
